@@ -38,11 +38,14 @@
 
       <ul class="nav-links">
         <li><a href="#home" class="active">Home</a></li>
-        <li><a href="#distributor-perks">Why Choose Us</a></li>
-        <li><a href="#products">Product Catalog</a></li>
-        <li><a href="#factory">Our Factory</a></li>
-        <li><a href="#faq">Distributor FAQ</a></li>
-        <li><a href="#contact">Get Quote</a></li>
+        <li><a href="#factory-tour">5-Step Quality</a></li>
+        <li><a href="#products">Products</a></li>
+        <li><a href="#calculator">Carton Calc</a></li>
+        <li><a href="#corporate-oem">Corporate OEM</a></li>
+        <li><a href="#logistics">Logistics Hub</a></li>
+        <li><a href="#testimonials">Reviews</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
 
       <div style="display:flex;gap:10px;align-items:center;">
@@ -137,6 +140,54 @@
     </div>
   </section>
 
+  <!-- ═══════ 5-Step Manufacturing & Quality Process ═══════ -->
+  <section id="factory-tour" class="factory-tour-section section-padding">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="sub-title">Bhiwandi Manufacturing Facility</span>
+        <h3>5-Step Quality & Production Process</h3>
+        <p>From high-grade waterproof fabrics to final master carton packing — how every D PLUS ONE umbrella is manufactured</p>
+      </div>
+
+      <div class="process-grid reveal">
+        <div class="process-card">
+          <div class="process-step-badge">Step 01</div>
+          <div class="process-icon"><i class="fa-solid fa-layer-group"></i></div>
+          <h4>Fabric & Silver UV Coating</h4>
+          <p>Double-coated 190T & 210T high-density Pongee fabrics treated with water-repellent polymers and reflective UV silver lining.</p>
+        </div>
+
+        <div class="process-card">
+          <div class="process-step-badge">Step 02</div>
+          <div class="process-icon"><i class="fa-solid fa-screwdriver-wrench"></i></div>
+          <h4>Frame & Rib Assembly</h4>
+          <p>Reinforced black-coated steel shafts paired with 100% windproof, non-conductive flexible fiberglass ribs that flex without snapping.</p>
+        </div>
+
+        <div class="process-card">
+          <div class="process-step-badge">Step 03</div>
+          <div class="process-icon"><i class="fa-solid fa-print"></i></div>
+          <h4>In-House Screen Printing</h4>
+          <p>High-speed screen printing line for custom corporate logos, distributor private labeling, and multi-color promotional canopies.</p>
+        </div>
+
+        <div class="process-card">
+          <div class="process-step-badge">Step 04</div>
+          <div class="process-icon"><i class="fa-solid fa-shield-halved"></i></div>
+          <h4>100% Stress & Wind Testing</h4>
+          <p>Individual runner mechanism checking, rib tension calibration, and monsoon storm simulation testing before clearance.</p>
+        </div>
+
+        <div class="process-card">
+          <div class="process-step-badge">Step 05</div>
+          <div class="process-icon"><i class="fa-solid fa-boxes-packing"></i></div>
+          <h4>Master Export Packaging</h4>
+          <p>Standardized 50/100/120 pcs heavy-duty exporter cartons packed for zero transit damage and dispatched with tracking.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ═══════ Product Catalog ═══════ -->
   <section id="products" class="container section-padding">
     <div class="section-header reveal">
@@ -145,16 +196,105 @@
       <p>Explore our authentic umbrella series — manufactured in Bhiwandi for wholesale distribution</p>
     </div>
 
+    <!-- Live Search & Filter Bar -->
+    <div class="catalog-search-wrapper reveal">
+      <div class="search-input-box">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" id="product-search-input" placeholder="Search by model (e.g. 24 inch, kargil, rainbow, golf, garden, silver)..." autocomplete="off">
+        <button id="search-clear-btn" class="search-clear-btn" title="Clear search"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="search-stats">
+        <span id="search-count-badge">Showing 20 Products</span>
+      </div>
+    </div>
+
     <div class="category-tabs reveal">
-      <button class="tab-btn active" data-category="all">All Products</button>
-      <button class="tab-btn" data-category="fold">Fold Series</button>
-      <button class="tab-btn" data-category="stick">23 Inch Stick Series</button>
-      <button class="tab-btn" data-category="fiber">25 Inch Fiber</button>
-      <button class="tab-btn" data-category="golf">Golf & Window</button>
-      <button class="tab-btn" data-category="garden">Garden & Gazebo</button>
+      <button class="tab-btn active" data-category="all">All Products (20)</button>
+      <button class="tab-btn" data-category="fold">Fold Series (8)</button>
+      <button class="tab-btn" data-category="stick">23" Stick Series (5)</button>
+      <button class="tab-btn" data-category="fiber">25" Fiber (1)</button>
+      <button class="tab-btn" data-category="golf">Golf & Window (4)</button>
+      <button class="tab-btn" data-category="garden">Garden & Gazebo (2)</button>
     </div>
 
     <div id="products-container" class="products-grid"></div>
+  </section>
+
+  <!-- ═══════ Interactive Bulk Order & Master Carton Calculator ═══════ -->
+  <section id="calculator" class="calculator-section section-padding">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="sub-title">Instant Wholesale Estimator</span>
+        <h3>Bulk Order & Master Carton Calculator</h3>
+        <p>Calculate master carton requirements, dispatch gross weight, and estimated transit timeline for your wholesale order</p>
+      </div>
+
+      <div class="calculator-card reveal">
+        <div class="calc-inputs-side">
+          <div class="form-group">
+            <label for="calc-product-select"><i class="fa-solid fa-umbrella"></i> Select Umbrella Model *</label>
+            <select id="calc-product-select" class="form-control">
+              <!-- Dynamically populated from productsData -->
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label><i class="fa-solid fa-boxes-stacked"></i> Order Quantity (Units): <span id="calc-qty-display" class="calc-qty-badge">250 Pcs</span></label>
+            <div class="calc-quick-pills">
+              <button type="button" class="qty-pill" data-qty="100">100 Pcs</button>
+              <button type="button" class="qty-pill active" data-qty="250">250 Pcs</button>
+              <button type="button" class="qty-pill" data-qty="500">500 Pcs</button>
+              <button type="button" class="qty-pill" data-qty="1000">1,000 Pcs</button>
+              <button type="button" class="qty-pill" data-qty="2500">2,500 Pcs</button>
+              <button type="button" class="qty-pill" data-qty="5000">5,000 Pcs</button>
+            </div>
+            <input type="range" id="calc-qty-range" min="50" max="5000" step="50" value="250" class="calc-slider">
+          </div>
+
+          <div class="form-group">
+            <label for="calc-dest-state"><i class="fa-solid fa-location-dot"></i> Delivery State / Region</label>
+            <select id="calc-dest-state" class="form-control">
+              <option value="mh">Maharashtra / Mumbai / Thane / Pune (Same Day - 24 Hrs)</option>
+              <option value="guj">Gujarat (Surat / Ahmedabad / Rajkot) (24-48 Hrs)</option>
+              <option value="north">Delhi NCR / Rajasthan / MP / UP (2-3 Days)</option>
+              <option value="south">Karnataka / TN / AP / Telangana / Kerala (2-3 Days)</option>
+              <option value="east">West Bengal / Bihar / Odisha / Assam (3-4 Days)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="calc-results-side">
+          <h4><i class="fa-solid fa-calculator"></i> Wholesale Order Estimate</h4>
+          <div class="calc-metrics-grid">
+            <div class="calc-metric-box">
+              <span class="metric-label">Master Cartons</span>
+              <span id="metric-cartons" class="metric-value">3 Cartons</span>
+              <span id="metric-carton-note" class="metric-sub">100 Pcs / Carton</span>
+            </div>
+            <div class="calc-metric-box">
+              <span class="metric-label">Total Units</span>
+              <span id="metric-units" class="metric-value">250 Pcs</span>
+              <span class="metric-sub">Manufactured Stock</span>
+            </div>
+            <div class="calc-metric-box">
+              <span class="metric-label">Est. Gross Weight</span>
+              <span id="metric-weight" class="metric-value">~105 Kg</span>
+              <span class="metric-sub">Exporter Grade Packaging</span>
+            </div>
+            <div class="calc-metric-box">
+              <span class="metric-label">Transit Time</span>
+              <span id="metric-transit" class="metric-value">Same Day / 24h</span>
+              <span class="metric-sub">Ex-Bhiwandi Logistics Hub</span>
+            </div>
+          </div>
+
+          <div class="calc-cta-wrap">
+            <a href="#contact" id="calc-order-quote-btn" class="btn btn-primary" style="width:100%;"><i class="fa-solid fa-paper-plane"></i> Book Master Carton Order at Ex-Factory Rates</a>
+            <p class="calc-helpline-sub">Need instant confirmation? Call factory sales desk: <a href="tel:08037734447"><strong>08037734447</strong></a></p>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
   <!-- ═══════ Factory & About ═══════ -->
@@ -187,6 +327,170 @@
 
       <div class="about-image reveal">
         <img src="https://cpimg.tistatic.com/10371907/b/4/6-foot-garden-umbrella.jpeg" alt="6 Foot Garden Umbrella - D Plus One Factory">
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ Corporate Gifting & OEM Custom Branding ═══════ -->
+  <section id="corporate-oem" class="corporate-section section-padding">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="sub-title">Custom Logo Printing & White-Label</span>
+        <h3>Corporate Gifting & Private Label Manufacturing</h3>
+        <p>Elevate your brand with premium customized umbrellas manufactured directly at our Bhiwandi facility</p>
+      </div>
+
+      <div class="corporate-grid reveal">
+        <div class="corporate-card">
+          <div class="corporate-icon"><i class="fa-solid fa-building-columns"></i></div>
+          <h4>Banking & Financial Services</h4>
+          <p>Durable 24" fold and 25" fiber umbrellas with subtle corporate panel printing for premium client welcome kits and annual gifts.</p>
+        </div>
+
+        <div class="corporate-card">
+          <div class="corporate-icon"><i class="fa-solid fa-pills"></i></div>
+          <h4>Pharmaceutical & Healthcare</h4>
+          <p>High-volume medical representative promotional umbrellas with multi-color brand logo screen printing and matching protective sleeves.</p>
+        </div>
+
+        <div class="corporate-card">
+          <div class="corporate-icon"><i class="fa-solid fa-car"></i></div>
+          <h4>Automobile & Dealerships</h4>
+          <p>Extra-large 30" Golf Fiber Black Silver umbrellas engineered for showroom customer handover hampers and VIP golf days.</p>
+        </div>
+
+        <div class="corporate-card">
+          <div class="corporate-icon"><i class="fa-solid fa-city"></i></div>
+          <h4>Real Estate & Hospitality</h4>
+          <p>Heavy-duty 36" and 6-Foot commercial garden umbrellas customized with full canopy digital printing for resorts, cafes, and sales galleries.</p>
+        </div>
+      </div>
+
+      <div class="oem-capabilities-banner reveal">
+        <div class="oem-cap-item"><i class="fa-solid fa-check-circle"></i> 1 to 4 Color Screen Printing</div>
+        <div class="oem-cap-item"><i class="fa-solid fa-check-circle"></i> Laser Logo Handle Embossing</div>
+        <div class="oem-cap-item"><i class="fa-solid fa-check-circle"></i> Custom Pantone Fabric Colors</div>
+        <div class="oem-cap-item"><i class="fa-solid fa-check-circle"></i> Branded Carton & Sleeve Packing</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ Pan-India Transport & Logistics Network ═══════ -->
+  <section id="logistics" class="logistics-section section-padding">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="sub-title">Ex-Bhiwandi Hub Dispatches</span>
+        <h3>Pan-India Transport & Fast Delivery Network</h3>
+        <p>Daily direct dispatches from Maharashtra's central warehousing corridor with complete LR tracking</p>
+      </div>
+
+      <div class="logistics-grid reveal">
+        <div class="logistics-card">
+          <div class="route-badge">Zone 1 • Express</div>
+          <div class="route-icon"><i class="fa-solid fa-bolt"></i></div>
+          <h4>Maharashtra & Mumbai MMR</h4>
+          <p class="route-cities">Mumbai, Thane, Navi Mumbai, Pune, Nashik, Kolhapur, Nagpur</p>
+          <div class="route-time"><i class="fa-solid fa-clock"></i> Same Day / 24 Hours</div>
+        </div>
+
+        <div class="logistics-card">
+          <div class="route-badge">Zone 2 • Priority</div>
+          <div class="route-icon"><i class="fa-solid fa-truck-fast"></i></div>
+          <h4>Gujarat Region</h4>
+          <p class="route-cities">Surat, Ahmedabad, Rajkot, Vadodara, Vapi, Bhavnagar</p>
+          <div class="route-time"><i class="fa-solid fa-clock"></i> 24 to 48 Hours</div>
+        </div>
+
+        <div class="logistics-card">
+          <div class="route-badge">Zone 3 • Direct Line</div>
+          <div class="route-icon"><i class="fa-solid fa-route"></i></div>
+          <h4>North & Central India</h4>
+          <p class="route-cities">Delhi NCR, Jaipur, Indore, Bhopal, Lucknow, Kanpur, Patna</p>
+          <div class="route-time"><i class="fa-solid fa-clock"></i> 2 to 3 Days</div>
+        </div>
+
+        <div class="logistics-card">
+          <div class="route-badge">Zone 4 • Direct Line</div>
+          <div class="route-icon"><i class="fa-solid fa-location-crosshairs"></i></div>
+          <h4>South India</h4>
+          <p class="route-cities">Bengaluru, Hyderabad, Chennai, Coimbatore, Kochi, Vijayawada</p>
+          <div class="route-time"><i class="fa-solid fa-clock"></i> 2 to 3 Days</div>
+        </div>
+
+        <div class="logistics-card">
+          <div class="route-badge">Zone 5 • Regional</div>
+          <div class="route-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+          <h4>East & North-East</h4>
+          <p class="route-cities">Kolkata, Bhubaneswar, Ranchi, Guwahati, Siliguri</p>
+          <div class="route-time"><i class="fa-solid fa-clock"></i> 3 to 4 Days</div>
+        </div>
+      </div>
+
+      <div class="transport-partners-bar reveal">
+        <span class="partners-label"><i class="fa-solid fa-handshake"></i> Authorised Logistics & Transport Partners:</span>
+        <div class="partners-tags">
+          <span class="partner-tag">V-Trans India</span>
+          <span class="partner-tag">TCI Freight</span>
+          <span class="partner-tag">Safexpress</span>
+          <span class="partner-tag">Delhivery Freight</span>
+          <span class="partner-tag">Associated Road Carriers (ARC)</span>
+          <span class="partner-tag">Direct Road Transport</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════ Verified Wholesaler & Stockist Testimonials ═══════ -->
+  <section id="testimonials" class="testimonials-section section-padding">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="sub-title">Trusted By 350+ Dealers</span>
+        <h3>Verified Wholesaler & Stockist Reviews</h3>
+        <p>What umbrella retailers, corporate suppliers, and wholesale dealers say about D PLUS ONE quality & dispatch</p>
+      </div>
+
+      <div class="testimonials-grid reveal">
+        <div class="testimonial-card">
+          <div class="rating-stars">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="testimonial-text">"We have been buying 24-inch fold and 23-inch Kargil umbrellas in 100-carton lots every monsoon. Zero rib breakage issues and best ex-factory margins in Mumbai wholesale market."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar"><i class="fa-solid fa-shop"></i></div>
+            <div>
+              <h5>Rajesh Shah & Bros</h5>
+              <span>Crawford Market Wholesaler, Mumbai</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="rating-stars">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="testimonial-text">"Fast dispatch to Surat textile market within 24 hours. The fiberglass windproof ribs and silver UV lining on the 25-inch models are top quality. Highly recommended for distributors."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar"><i class="fa-solid fa-store"></i></div>
+            <div>
+              <h5>Praveen Patel & Sons</h5>
+              <span>Ring Road Textile Market, Surat</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card">
+          <div class="rating-stars">
+            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+          </div>
+          <p class="testimonial-text">"Ordered 1,500 pcs 30-inch Golf Fiber umbrellas with bank corporate logo printing for a national campaign. Crisp screen printing, heavy master packaging, delivered on schedule in Delhi."</p>
+          <div class="testimonial-author">
+            <div class="author-avatar"><i class="fa-solid fa-gift"></i></div>
+            <div>
+              <h5>Apex Corporate Gifting Ltd</h5>
+              <span>Sadar Bazar / Connaught Place, New Delhi</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </section>
@@ -434,6 +738,16 @@
       </div>
     </div>
   </footer>
+
+  <!-- Mobile Sticky Bottom Quick Action Bar -->
+  <div class="mobile-bottom-bar">
+    <a href="tel:08037734447" class="bottom-bar-btn btn-call">
+      <i class="fa-solid fa-phone"></i> Call Factory: 08037734447
+    </a>
+    <button type="button" class="bottom-bar-btn btn-catalog" id="mobile-catalog-trigger">
+      <i class="fa-solid fa-file-pdf"></i> 2026 Catalog
+    </button>
+  </div>
 
   <script src="products.js"></script>
   <script src="script.js"></script>

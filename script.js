@@ -1,4 +1,4 @@
-// D PLUS ONE NEW UMBRELLA AND BRAND - PROFESSIONAL INTERACTIVE LOGIC
+// D PLUS ONE NEW UMBRELLA AND BRAND - PROFESSIONAL ADVANCED INTERACTIVE LOGIC
 
 document.addEventListener('DOMContentLoaded', () => {
   const productsContainer = document.getElementById('products-container');
@@ -15,6 +15,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeCatalogModalBtn = document.querySelector('.close-catalog-modal');
   const printCatalogBtn = document.getElementById('print-catalog-action');
   const catalogTableContent = document.getElementById('catalog-table-content');
+  const searchInput = document.getElementById('product-search-input');
+  const searchClearBtn = document.getElementById('search-clear-btn');
+  const searchCountBadge = document.getElementById('search-count-badge');
+  const mobileCatalogTrigger = document.getElementById('mobile-catalog-trigger');
+
+  let currentCategory = 'all';
+  let currentSearchQuery = '';
 
   // ── Scroll Reveal Animation ──
   const revealElements = document.querySelectorAll('.reveal');
@@ -25,7 +32,7 @@ document.addEventListener('DOMContentLoaded', () => {
         revealObserver.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
   revealElements.forEach(el => revealObserver.observe(el));
 
   // ── Header shrink on scroll ──
@@ -77,7 +84,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Close menu on outside click
     document.addEventListener('click', (e) => {
       if (!navLinks.contains(e.target) && !mobileToggle.contains(e.target)) {
         navLinks.classList.remove('active');
@@ -87,22 +93,48 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ── Render Products ──
-  function renderProducts(filterCategory = 'all') {
+  // ── Render Products with Category & Live Search ──
+  function renderFilteredProducts() {
     if (!productsContainer) return;
 
-    const filtered = filterCategory === 'all'
-      ? productsData
-      : productsData.filter(p => p.category === filterCategory);
+    let filtered = productsData;
+
+    // Filter by Category
+    if (currentCategory !== 'all') {
+      filtered = filtered.filter(p => p.category === currentCategory);
+    }
+
+    // Filter by Search Query
+    if (currentSearchQuery.trim() !== '') {
+      const q = currentSearchQuery.toLowerCase().trim();
+      filtered = filtered.filter(p => {
+        const nameMatch = p.name.toLowerCase().includes(q);
+        const descMatch = p.description.toLowerCase().includes(q);
+        const catMatch = p.category.toLowerCase().includes(q);
+        const specsMatch = Object.values(p.specs).some(val => val.toLowerCase().includes(q));
+        return nameMatch || descMatch || catMatch || specsMatch;
+      });
+    }
+
+    // Update result count badge
+    if (searchCountBadge) {
+      searchCountBadge.textContent = `Showing ${filtered.length} Product${filtered.length === 1 ? '' : 's'}`;
+    }
 
     productsContainer.style.opacity = '0';
-    productsContainer.style.transform = 'translateY(12px)';
+    productsContainer.style.transform = 'translateY(10px)';
 
     setTimeout(() => {
       productsContainer.innerHTML = '';
 
       if (filtered.length === 0) {
-        productsContainer.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:60px 20px;color:#64748b;font-size:1.1rem;">No products found in this category.</div>';
+        productsContainer.innerHTML = `
+          <div style="grid-column:1/-1;text-align:center;padding:50px 20px;color:#64748b;background:white;border-radius:12px;border:1px solid #e2e8f0;">
+            <i class="fa-solid fa-umbrella" style="font-size:2.5rem;color:#cbd5e1;margin-bottom:12px;"></i>
+            <h4 style="color:#0c1d36;font-size:1.2rem;margin-bottom:6px;">No products match your search</h4>
+            <p style="font-size:0.9rem;">Try searching for "24 inch", "fold", "rainbow", "golf", or clear the filter.</p>
+          </div>
+        `;
         productsContainer.style.opacity = '1';
         productsContainer.style.transform = 'translateY(0)';
         return;
@@ -111,7 +143,7 @@ document.addEventListener('DOMContentLoaded', () => {
       filtered.forEach((product, index) => {
         const card = document.createElement('div');
         card.className = 'product-card';
-        card.style.animationDelay = `${index * 0.06}s`;
+        card.style.animationDelay = `${index * 0.05}s`;
 
         const badgeHtml = product.badge ? `<span class="badge-top">${product.badge}</span>` : '';
 
@@ -144,7 +176,7 @@ document.addEventListener('DOMContentLoaded', () => {
         productsContainer.appendChild(card);
       });
 
-      // Bind event listeners
+      // Bind modal & quote listeners
       document.querySelectorAll('.view-details-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           const prodId = parseInt(e.currentTarget.getAttribute('data-id'));
@@ -170,24 +202,49 @@ document.addEventListener('DOMContentLoaded', () => {
       productsContainer.style.opacity = '1';
       productsContainer.style.transform = 'translateY(0)';
 
-    }, 180);
+    }, 150);
   }
 
-  // ── Category Filtering ──
+  // ── Live Search Input Listeners ──
+  if (searchInput) {
+    searchInput.addEventListener('input', (e) => {
+      currentSearchQuery = e.target.value;
+      if (searchClearBtn) {
+        if (currentSearchQuery.length > 0) {
+          searchClearBtn.classList.add('visible');
+        } else {
+          searchClearBtn.classList.remove('visible');
+        }
+      }
+      renderFilteredProducts();
+    });
+  }
+
+  if (searchClearBtn && searchInput) {
+    searchClearBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      currentSearchQuery = '';
+      searchClearBtn.classList.remove('visible');
+      renderFilteredProducts();
+      searchInput.focus();
+    });
+  }
+
+  // ── Category Tab Listeners ──
   categoryTabs.forEach(tab => {
     tab.addEventListener('click', () => {
       categoryTabs.forEach(t => t.classList.remove('active'));
       tab.classList.add('active');
-      renderProducts(tab.getAttribute('data-category'));
+      currentCategory = tab.getAttribute('data-category');
+      renderFilteredProducts();
     });
   });
 
-  // ── Multi-Image Gallery & Zoom in Product Modal ──
+  // ── Multi-Image Gallery & Dynamic Cursor Zoom in Modal ──
   function openProductModal(productId) {
     const product = productsData.find(p => p.id === productId);
     if (!product || !modal || !modalBody) return;
 
-    // Collect all images (main + extra)
     const allImages = [product.image];
     if (product.extraImages && Array.isArray(product.extraImages)) {
       product.extraImages.forEach(img => {
@@ -195,21 +252,19 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Build thumbnails HTML
     let thumbnailsHtml = '';
     if (allImages.length > 1) {
       thumbnailsHtml = `
         <div class="modal-thumbnails">
           ${allImages.map((img, idx) => `
             <button class="modal-thumb-btn ${idx === 0 ? 'active' : ''}" data-src="${img}">
-              <img src="${img}" alt="${product.name} thumbnail ${idx + 1}">
+              <img src="${img}" alt="${product.name} angle ${idx + 1}">
             </button>
           `).join('')}
         </div>
       `;
     }
 
-    // Build specs table HTML
     let specsHtml = '';
     Object.entries(product.specs).forEach(([key, val], i) => {
       const rowClass = i % 2 === 0 ? 'style="background:#f8fafc;"' : '';
@@ -247,7 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     `;
 
-    // Interactive Thumbnail Switching
+    // Thumbnail Switcher
     const thumbBtns = modalBody.querySelectorAll('.modal-thumb-btn');
     const mainImg = modalBody.querySelector('#main-modal-image');
     thumbBtns.forEach(btn => {
@@ -256,16 +311,16 @@ document.addEventListener('DOMContentLoaded', () => {
         btn.classList.add('active');
         const newSrc = btn.getAttribute('data-src');
         if (mainImg && newSrc) {
-          mainImg.style.opacity = '0.4';
+          mainImg.style.opacity = '0.3';
           setTimeout(() => {
             mainImg.src = newSrc;
             mainImg.style.opacity = '1';
-          }, 150);
+          }, 120);
         }
       });
     });
 
-    // Dynamic Zoom on Cursor Movement
+    // Dynamic Cursor Zoom Lens
     const zoomContainer = modalBody.querySelector('#zoom-img-container');
     if (zoomContainer && mainImg) {
       zoomContainer.addEventListener('mousemove', (e) => {
@@ -360,6 +415,10 @@ document.addEventListener('DOMContentLoaded', () => {
     downloadCatalogBtn.addEventListener('click', openCatalogModal);
   }
 
+  if (mobileCatalogTrigger) {
+    mobileCatalogTrigger.addEventListener('click', openCatalogModal);
+  }
+
   if (closeCatalogModalBtn) {
     closeCatalogModalBtn.addEventListener('click', () => {
       catalogModal.classList.remove('active');
@@ -382,6 +441,105 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ── Interactive Bulk Order & Master Carton Calculator ──
+  const calcProductSelect = document.getElementById('calc-product-select');
+  const calcQtyRange = document.getElementById('calc-qty-range');
+  const calcQtyDisplay = document.getElementById('calc-qty-display');
+  const calcPills = document.querySelectorAll('.qty-pill');
+  const calcDestState = document.getElementById('calc-dest-state');
+  const metricCartons = document.getElementById('metric-cartons');
+  const metricCartonNote = document.getElementById('metric-carton-note');
+  const metricUnits = document.getElementById('metric-units');
+  const metricWeight = document.getElementById('metric-weight');
+  const metricTransit = document.getElementById('metric-transit');
+  const calcOrderBtn = document.getElementById('calc-order-quote-btn');
+
+  // Populate Calculator Product Dropdown
+  if (calcProductSelect && productsData.length > 0) {
+    calcProductSelect.innerHTML = productsData.map(p => `
+      <option value="${p.id}">${p.name} (${p.category.toUpperCase()} - ${p.specs['Size'] || ''})</option>
+    `).join('');
+  }
+
+  function updateCalculator() {
+    if (!calcProductSelect || !calcQtyRange) return;
+
+    const selectedId = parseInt(calcProductSelect.value);
+    const product = productsData.find(p => p.id === selectedId) || productsData[0];
+    const qty = parseInt(calcQtyRange.value);
+
+    if (calcQtyDisplay) calcQtyDisplay.textContent = `${qty.toLocaleString()} Pcs`;
+
+    // Extract MOQ per carton from product specs
+    let pcsPerCarton = 100;
+    const moqText = product.specs['Factory MOQ'] || '';
+    const match = moqText.match(/(\d+)/);
+    if (match) {
+      pcsPerCarton = parseInt(match[1]);
+    }
+
+    const cartons = Math.ceil(qty / pcsPerCarton);
+    const estWeightKg = Math.round(qty * 0.44); // avg ~440g per umbrella + carton weight
+
+    // Transit time based on region
+    const transitTimes = {
+      mh: 'Same Day / 24h',
+      guj: '24 to 48 Hours',
+      north: '2 to 3 Days',
+      south: '2 to 3 Days',
+      east: '3 to 4 Days'
+    };
+    const region = calcDestState ? calcDestState.value : 'mh';
+
+    if (metricCartons) metricCartons.textContent = `${cartons} Carton${cartons > 1 ? 's' : ''}`;
+    if (metricCartonNote) metricCartonNote.textContent = `${pcsPerCarton} Pcs / Master Carton`;
+    if (metricUnits) metricUnits.textContent = `${qty.toLocaleString()} Pcs`;
+    if (metricWeight) metricWeight.textContent = `~${estWeightKg} Kg`;
+    if (metricTransit) metricTransit.textContent = transitTimes[region] || '24-48 Hours';
+
+    // Update Quick Quote button click action
+    if (calcOrderBtn) {
+      calcOrderBtn.onclick = () => {
+        const reqInput = document.getElementById('requirement');
+        const inquirySelect = document.getElementById('inquiry-type');
+        if (reqInput) {
+          reqInput.value = `Bulk Master Carton Inquiry: ${product.name} — Quantity: ${qty} units (${cartons} Master Cartons, MOQ: ${pcsPerCarton}/ctn). Destination: ${calcDestState ? calcDestState.options[calcDestState.selectedIndex].text : 'Maharashtra'}. Please share ex-factory price and dispatch LR terms.`;
+          reqInput.focus();
+        }
+        if (inquirySelect) inquirySelect.value = 'wholesale';
+      };
+    }
+  }
+
+  if (calcProductSelect) calcProductSelect.addEventListener('change', updateCalculator);
+  if (calcDestState) calcDestState.addEventListener('change', updateCalculator);
+
+  if (calcQtyRange) {
+    calcQtyRange.addEventListener('input', () => {
+      calcPills.forEach(p => {
+        if (parseInt(p.getAttribute('data-qty')) === parseInt(calcQtyRange.value)) {
+          p.classList.add('active');
+        } else {
+          p.classList.remove('active');
+        }
+      });
+      updateCalculator();
+    });
+  }
+
+  calcPills.forEach(pill => {
+    pill.addEventListener('click', () => {
+      calcPills.forEach(p => p.classList.remove('active'));
+      pill.classList.add('active');
+      const val = parseInt(pill.getAttribute('data-qty'));
+      if (calcQtyRange) calcQtyRange.value = val;
+      updateCalculator();
+    });
+  });
+
+  // Initial calculator computation
+  updateCalculator();
+
   // ── B2B FAQ Accordion Logic ──
   const faqQuestions = document.querySelectorAll('.faq-question');
   faqQuestions.forEach(btn => {
@@ -389,14 +547,12 @@ document.addEventListener('DOMContentLoaded', () => {
       const currentItem = btn.parentElement;
       const isOpen = currentItem.classList.contains('active');
 
-      // Close all other items
       document.querySelectorAll('.faq-item').forEach(item => {
         item.classList.remove('active');
         const q = item.querySelector('.faq-question');
         if (q) q.setAttribute('aria-expanded', 'false');
       });
 
-      // Toggle current
       if (!isOpen) {
         currentItem.classList.add('active');
         btn.setAttribute('aria-expanded', 'true');
@@ -482,6 +638,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ── Initial Render ──
-  renderProducts('all');
+  // ── Initial Product Render ──
+  renderFilteredProducts();
 });

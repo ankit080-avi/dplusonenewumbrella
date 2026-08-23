@@ -621,6 +621,623 @@ textarea.form-control { resize: vertical; min-height: 120px; }
 .spec-key { font-weight: 700; color: var(--primary); width: 42%; }
 .spec-val { color: #334155; }
 
+/* ══════════════════════════════════════════════════════════
+   1. LIVE PRODUCT SEARCH & FILTER BAR
+   ══════════════════════════════════════════════════════════ */
+.catalog-search-wrapper {
+  max-width: 740px;
+  margin: 0 auto 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.search-input-box {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+.search-icon {
+  position: absolute;
+  left: 18px;
+  color: var(--accent);
+  font-size: 1.1rem;
+  pointer-events: none;
+}
+#product-search-input {
+  width: 100%;
+  padding: 14px 44px 14px 48px;
+  border: 2px solid var(--border);
+  border-radius: 40px;
+  font-size: 0.95rem;
+  font-family: 'Inter', sans-serif;
+  background: var(--white);
+  color: var(--text);
+  outline: none;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition);
+}
+#product-search-input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 4px rgba(37,99,235,0.15);
+}
+.search-clear-btn {
+  position: absolute;
+  right: 14px;
+  background: #e2e8f0;
+  border: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  color: var(--text-muted);
+  cursor: pointer;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  transition: var(--transition);
+}
+.search-clear-btn:hover {
+  background: #cbd5e1;
+  color: var(--text);
+}
+.search-clear-btn.visible {
+  display: flex;
+}
+.search-stats {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+#search-count-badge {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--accent);
+  background: rgba(37,99,235,0.08);
+  padding: 4px 14px;
+  border-radius: 20px;
+}
+
+/* ══════════════════════════════════════════════════════════
+   2. 5-STEP FACTORY & QUALITY PROCESS TIMELINE
+   ══════════════════════════════════════════════════════════ */
+.factory-tour-section {
+  background: var(--white);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.process-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+}
+.process-card {
+  background: var(--bg);
+  padding: 28px 20px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  position: relative;
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+.process-card:hover {
+  transform: translateY(-8px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent);
+  background: var(--white);
+}
+.process-step-badge {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--gold);
+  background: rgba(232,163,23,0.12);
+  padding: 3px 10px;
+  border-radius: 4px;
+  width: fit-content;
+  margin-bottom: 16px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+.process-icon {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, rgba(37,99,235,0.12), rgba(37,99,235,0.05));
+  color: var(--accent);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin-bottom: 16px;
+  transition: var(--transition);
+}
+.process-card:hover .process-icon {
+  background: linear-gradient(135deg, var(--accent), #3b82f6);
+  color: white;
+  box-shadow: 0 4px 12px rgba(37,99,235,0.3);
+}
+.process-card h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.15rem;
+  color: var(--primary);
+  margin-bottom: 10px;
+  line-height: 1.25;
+}
+.process-card p {
+  color: var(--text-muted);
+  font-size: 0.86rem;
+  line-height: 1.55;
+  margin: 0;
+}
+
+/* ══════════════════════════════════════════════════════════
+   3. BULK ORDER & MASTER CARTON CALCULATOR
+   ══════════════════════════════════════════════════════════ */
+.calculator-section {
+  background: linear-gradient(180deg, #f8fafc, #edf2f7);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.calculator-card {
+  background: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-xl);
+  border: 1px solid var(--border);
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  overflow: hidden;
+}
+.calc-inputs-side {
+  padding: clamp(28px, 4vw, 44px);
+  border-right: 1px solid var(--border);
+}
+.calc-qty-badge {
+  color: var(--accent);
+  font-weight: 800;
+  font-size: 1rem;
+}
+.calc-quick-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 10px 0 14px;
+}
+.qty-pill {
+  padding: 7px 14px;
+  background: var(--bg);
+  border: 1.5px solid var(--border);
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: var(--text);
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: var(--transition);
+}
+.qty-pill:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.qty-pill.active {
+  background: var(--accent);
+  color: white;
+  border-color: var(--accent);
+  box-shadow: 0 2px 8px rgba(37,99,235,0.3);
+}
+.calc-slider {
+  width: 100%;
+  height: 8px;
+  border-radius: 5px;
+  background: #e2e8f0;
+  outline: none;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
+.calc-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(37,99,235,0.4);
+}
+.calc-results-side {
+  background: linear-gradient(150deg, #0c1d36, #1a3a5c);
+  color: white;
+  padding: clamp(28px, 4vw, 44px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.calc-results-side h4 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  margin-bottom: 22px;
+  color: white;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.calc-metrics-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.calc-metric-box {
+  background: rgba(255,255,255,0.08);
+  padding: 16px;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  flex-direction: column;
+}
+.metric-label {
+  font-size: 0.75rem;
+  color: #94a3b8;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  margin-bottom: 4px;
+}
+.metric-value {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.45rem;
+  font-weight: 800;
+  color: var(--gold-light);
+  margin-bottom: 2px;
+}
+.metric-sub {
+  font-size: 0.74rem;
+  color: #cbd5e1;
+}
+.calc-cta-wrap {
+  margin-top: 10px;
+}
+.calc-helpline-sub {
+  font-size: 0.82rem;
+  color: #94a3b8;
+  text-align: center;
+  margin-top: 12px;
+}
+.calc-helpline-sub a {
+  color: var(--gold-light);
+  text-decoration: none;
+}
+
+/* ══════════════════════════════════════════════════════════
+   4. CORPORATE GIFTING & OEM CUSTOM BRANDING
+   ══════════════════════════════════════════════════════════ */
+.corporate-section {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+}
+.corporate-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+  margin-bottom: 32px;
+}
+.corporate-card {
+  background: var(--bg);
+  padding: 30px 24px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  transition: var(--transition);
+}
+.corporate-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent);
+  background: var(--white);
+}
+.corporate-icon {
+  width: 52px;
+  height: 52px;
+  background: linear-gradient(135deg, rgba(232,163,23,0.15), rgba(232,163,23,0.05));
+  color: var(--gold);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  margin-bottom: 18px;
+}
+.corporate-card h4 {
+  font-size: 1.1rem;
+  color: var(--primary);
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+.corporate-card p {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+  line-height: 1.55;
+  margin: 0;
+}
+.oem-capabilities-banner {
+  background: linear-gradient(90deg, #0c1d36, #1a3a5c);
+  color: white;
+  padding: 20px 30px;
+  border-radius: var(--radius);
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.oem-cap-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+.oem-cap-item i {
+  color: var(--gold-light);
+}
+
+/* ══════════════════════════════════════════════════════════
+   5. PAN-INDIA LOGISTICS & TRANSPORT NETWORK
+   ══════════════════════════════════════════════════════════ */
+.logistics-section {
+  background: var(--bg);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+.logistics-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 18px;
+  margin-bottom: 30px;
+}
+.logistics-card {
+  background: var(--white);
+  padding: 24px 18px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+}
+.logistics-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--accent);
+}
+.route-badge {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--accent);
+  background: rgba(37,99,235,0.08);
+  padding: 3px 8px;
+  border-radius: 4px;
+  width: fit-content;
+  margin-bottom: 14px;
+  text-transform: uppercase;
+}
+.route-icon {
+  font-size: 1.4rem;
+  color: var(--primary);
+  margin-bottom: 12px;
+}
+.logistics-card h4 {
+  font-size: 1rem;
+  color: var(--primary);
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+.route-cities {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  line-height: 1.5;
+  flex-grow: 1;
+  margin-bottom: 16px;
+}
+.route-time {
+  font-size: 0.84rem;
+  font-weight: 800;
+  color: #059669;
+  background: #ecfdf5;
+  padding: 6px 10px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+}
+.transport-partners-bar {
+  background: var(--white);
+  padding: 20px 26px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+.partners-label {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--primary);
+}
+.partners-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.partner-tag {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text);
+}
+
+/* ══════════════════════════════════════════════════════════
+   6. VERIFIED WHOLESALER REVIEWS
+   ══════════════════════════════════════════════════════════ */
+.testimonials-section {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+}
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+}
+.testimonial-card {
+  background: var(--bg);
+  padding: 32px 26px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  transition: var(--transition);
+}
+.testimonial-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--accent);
+  background: var(--white);
+}
+.rating-stars {
+  color: #f59e0b;
+  font-size: 0.95rem;
+  margin-bottom: 16px;
+  display: flex;
+  gap: 4px;
+}
+.testimonial-text {
+  color: var(--text);
+  font-size: 0.92rem;
+  line-height: 1.65;
+  font-style: italic;
+  margin-bottom: 20px;
+  flex-grow: 1;
+}
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  border-top: 1px solid var(--border);
+  padding-top: 16px;
+}
+.author-avatar {
+  width: 44px;
+  height: 44px;
+  background: linear-gradient(135deg, var(--accent), var(--primary));
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+}
+.testimonial-author h5 {
+  font-size: 0.95rem;
+  color: var(--primary);
+  margin-bottom: 2px;
+  font-weight: 700;
+}
+.testimonial-author span {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+/* ══════════════════════════════════════════════════════════
+   7. MOBILE STICKY BOTTOM ACTION BAR
+   ══════════════════════════════════════════════════════════ */
+.mobile-bottom-bar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: var(--white);
+  padding: 10px 16px;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.12);
+  z-index: 1000;
+  border-top: 1px solid var(--border);
+  gap: 10px;
+}
+.bottom-bar-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.88rem;
+  font-weight: 700;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  transition: var(--transition);
+}
+.bottom-bar-btn.btn-call {
+  background: linear-gradient(135deg, #059669, #10b981);
+  color: white;
+}
+.bottom-bar-btn.btn-catalog {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  color: white;
+}
+@media (max-width: 768px) {
+  .mobile-bottom-bar {
+    display: flex;
+  }
+  body {
+    padding-bottom: 60px;
+  }
+  .floating-whatsapp {
+    bottom: 74px;
+  }
+  .process-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .calculator-card {
+    grid-template-columns: 1fr;
+  }
+  .corporate-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .logistics-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 480px) {
+  .process-grid {
+    grid-template-columns: 1fr;
+  }
+  .corporate-grid {
+    grid-template-columns: 1fr;
+  }
+  .logistics-grid {
+    grid-template-columns: 1fr;
+  }
+  .calc-metrics-grid {
+    grid-template-columns: 1fr;
+  }
+  .oem-capabilities-banner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
 /* ── Multi-Image Gallery & Zoom in Modal ── */
 .modal-gallery {
   display: flex;
