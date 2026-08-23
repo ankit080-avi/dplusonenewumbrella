@@ -41,6 +41,7 @@
         <li><a href="#distributor-perks">Why Choose Us</a></li>
         <li><a href="#products">Product Catalog</a></li>
         <li><a href="#factory">Our Factory</a></li>
+        <li><a href="#faq">Distributor FAQ</a></li>
         <li><a href="#contact">Get Quote</a></li>
       </ul>
 
@@ -59,6 +60,7 @@
       <p>High-quality 23 Inch Stick Umbrellas, 24 Inch Fold Umbrellas, 25 Inch Fiber Umbrellas, Golf Fiber Black Silver Umbrellas, 30 Inch Fiber Golf Umbrellas, Garden Umbrellas & Gazebo Tents — manufactured in Bhiwandi, supplied pan-India.</p>
       <div class="hero-btns">
         <a href="#products" class="btn btn-primary"><i class="fa-solid fa-boxes-stacked"></i> View Product Catalog</a>
+        <button id="download-catalog-btn" class="btn btn-white-outline"><i class="fa-solid fa-file-pdf"></i> Download 2026 Catalog (PDF)</button>
         <a href="#contact" class="btn btn-accent"><i class="fa-solid fa-handshake"></i> Become a Distributor</a>
       </div>
     </div>
@@ -189,6 +191,77 @@
     </div>
   </section>
 
+  <!-- ═══════ B2B Distributor FAQ Section ═══════ -->
+  <section id="faq" class="container section-padding">
+    <div class="section-header reveal">
+      <span class="sub-title">Wholesaler & Stockist Help</span>
+      <h3>Frequently Asked Questions</h3>
+      <p>Clear answers to common questions about factory MOQs, OEM printing, transport dispatches, and dealership terms</p>
+    </div>
+
+    <div class="faq-accordion reveal">
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span><i class="fa-solid fa-boxes-stacked"></i> What is the Minimum Order Quantity (MOQ) for Master Cartons?</span>
+          <i class="fa-solid fa-chevron-down faq-icon"></i>
+        </button>
+        <div class="faq-answer">
+          <p>Our standard Factory MOQ is <strong>1 Master Carton (50 to 120 pieces depending on model)</strong>. For example, 21-inch and 24-inch fold umbrellas come in 100-120 pcs cartons, while 27-inch Shenshah and 30-inch golf umbrellas come in 50 pcs export cartons. Garden umbrellas have an MOQ of just 10 pieces.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span><i class="fa-solid fa-stamp"></i> Do you provide custom company logo printing & private label branding?</span>
+          <i class="fa-solid fa-chevron-down faq-icon"></i>
+        </button>
+        <div class="faq-answer">
+          <p>Yes! We have an in-house screen printing and precision heat-transfer setup at our Bhiwandi unit. We provide custom panel printing, logo embossing on straight or J-handles, and custom strap branding for corporate gifts, promotional campaigns, and white-label distributor brands.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span><i class="fa-solid fa-truck-fast"></i> How does Pan-India transport dispatch work from Bhiwandi?</span>
+          <i class="fa-solid fa-chevron-down faq-icon"></i>
+        </button>
+        <div class="faq-answer">
+          <p>Bhiwandi is Maharashtra's premier logistics hub. We have daily direct transport dispatches via V-Trans, TCI, Safechem, Delhivery, and regional road transports across Maharashtra, Gujarat, Karnataka, Tamil Nadu, Andhra Pradesh, Delhi NCR, Uttar Pradesh, Bihar, and West Bengal with LR tracking.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span><i class="fa-solid fa-box-open"></i> Can I order sample pieces before placing a bulk master carton order?</span>
+          <i class="fa-solid fa-chevron-down faq-icon"></i>
+        </button>
+        <div class="faq-answer">
+          <p>Yes, we provide sample master kits for genuine wholesalers, distributors, and corporate procurement heads. You can request 2-3 model samples by calling our factory sales desk at <strong>08037734447</strong>, and we dispatch samples via express air courier within 24 hours.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span><i class="fa-solid fa-file-invoice-dollar"></i> What are your payment terms and GST billing process?</span>
+          <i class="fa-solid fa-chevron-down faq-icon"></i>
+        </button>
+        <div class="faq-answer">
+          <p>We provide 100% authentic GST invoices under <strong>GSTIN: 27GGVPP4625K1ZH</strong> (D PLUS ONE NEW UMBRELLA AND BRAND). Payment can be made via direct Bank RTGS/NEFT/IMPS or UPI. For verified regular distributors, we also offer flexible transport payment terms.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" aria-expanded="false">
+          <span><i class="fa-solid fa-shield-halved"></i> What quality guarantee and frame defect policy do you offer?</span>
+          <i class="fa-solid fa-chevron-down faq-icon"></i>
+        </button>
+        <div class="faq-answer">
+          <p>Every batch undergoes 100% mechanical rib tension, fabric water-repellency, and runner mechanism testing before carton packing. In the rare event of transit or manufacturing defects, we offer immediate 1-to-1 credit note or replacement in your next dispatch.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ═══════ Contact & Inquiry ═══════ -->
   <section id="contact" class="container section-padding">
     <div class="section-header reveal">
@@ -277,11 +350,37 @@
     </div>
   </section>
 
-  <!-- Modal -->
+  <!-- Product Specs Modal -->
   <div id="product-modal" class="modal">
     <div class="modal-content">
       <span class="close-modal">&times;</span>
       <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <!-- Wholesale Catalog PDF Modal -->
+  <div id="catalog-modal" class="modal">
+    <div class="modal-content catalog-modal-content">
+      <span class="close-modal close-catalog-modal">&times;</span>
+      <div class="catalog-modal-header">
+        <div class="catalog-header-brand">
+          <div class="catalog-logo-icon"><i class="fa-solid fa-umbrella"></i></div>
+          <div>
+            <h3>D PLUS ONE NEW UMBRELLA AND BRAND</h3>
+            <p class="catalog-subtitle">Manufacturer & Wholesale Distributor | Bhiwandi, Maharashtra</p>
+            <span class="catalog-meta-tag"><i class="fa-solid fa-file-invoice"></i> GSTIN: 27GGVPP4625K1ZH &nbsp;|&nbsp; <i class="fa-solid fa-phone"></i> 08037734447</span>
+          </div>
+        </div>
+        <div class="catalog-print-btn-wrap">
+          <button id="print-catalog-action" class="btn btn-primary"><i class="fa-solid fa-print"></i> Print / Save as PDF</button>
+        </div>
+      </div>
+      <div class="catalog-table-container">
+        <div id="catalog-table-content"></div>
+      </div>
+      <div class="catalog-footer-note">
+        <p><i class="fa-solid fa-circle-info"></i> <strong>Ex-Factory Wholesale Terms:</strong> Master carton rates apply. Custom corporate screen printing & OEM private labeling available. Call factory sales desk at <strong>08037734447</strong> for today's freight and master carton dispatch rates.</p>
+      </div>
     </div>
   </div>
 
@@ -304,6 +403,7 @@
           <li><a href="#distributor-perks">Why Choose Us</a></li>
           <li><a href="#products">Product Catalog</a></li>
           <li><a href="#factory">Our Factory</a></li>
+          <li><a href="#faq">Distributor FAQ</a></li>
           <li><a href="#contact">Get Quote</a></li>
         </ul>
       </div>
