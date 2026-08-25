@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="styles.css?v=3.0">
+  <link rel="stylesheet" href="styles.css?v=3.5">
 </head>
 <body>
 
@@ -669,24 +669,56 @@
   <div id="catalog-modal" class="modal">
     <div class="modal-content catalog-modal-content">
       <span class="close-modal close-catalog-modal">&times;</span>
+      
+      <!-- Catalog Corporate Header -->
       <div class="catalog-modal-header">
         <div class="catalog-header-brand">
           <div class="catalog-logo-icon"><i class="fa-solid fa-umbrella"></i></div>
           <div>
             <h3>D PLUS ONE NEW UMBRELLA AND BRAND</h3>
-            <p class="catalog-subtitle">Manufacturer & Wholesale Distributor | Bhiwandi, Maharashtra</p>
-            <span class="catalog-meta-tag"><i class="fa-solid fa-file-invoice"></i> GSTIN: 27GGVPP4625K1ZH &nbsp;|&nbsp; <i class="fa-solid fa-phone"></i> 08037734447</span>
+            <p class="catalog-subtitle">Direct Manufacturer & Pan-India Wholesale Distributor | Bhiwandi, Maharashtra</p>
+            <div class="catalog-meta-tags-row">
+              <span class="catalog-meta-tag"><i class="fa-solid fa-file-invoice"></i> GSTIN: 27GGVPP4625K1ZH</span>
+              <span class="catalog-meta-tag"><i class="fa-solid fa-phone"></i> Factory Helpline: 08037734447</span>
+              <span class="catalog-edition-tag"><i class="fa-solid fa-award"></i> 2026 Wholesale Edition</span>
+            </div>
           </div>
         </div>
         <div class="catalog-print-btn-wrap">
-          <button id="print-catalog-action" class="btn btn-primary"><i class="fa-solid fa-print"></i> Print / Save as PDF</button>
+          <button id="print-catalog-action" class="btn btn-primary"><i class="fa-solid fa-file-arrow-down"></i> Print / Save PDF</button>
         </div>
       </div>
+
+      <!-- Quick Summary Badges -->
+      <div class="catalog-summary-chips">
+        <span class="cat-chip"><i class="fa-solid fa-boxes-stacked"></i> Master Carton MOQ: 10 - 120 Pcs</span>
+        <span class="cat-chip"><i class="fa-solid fa-stamp"></i> Custom Screen & Logo Printing</span>
+        <span class="cat-chip"><i class="fa-solid fa-truck-fast"></i> Daily Pan-India Transport</span>
+      </div>
+
+      <!-- Category Filter Tabs inside Catalog -->
+      <div class="catalog-modal-tabs" id="catalog-modal-tabs">
+        <button type="button" class="cat-modal-tab active" data-cat="all">All Models (20)</button>
+        <button type="button" class="cat-modal-tab" data-cat="fold">Fold Series (8)</button>
+        <button type="button" class="cat-modal-tab" data-cat="stick">23" Stick (5)</button>
+        <button type="button" class="cat-modal-tab" data-cat="fiber">25" Fiber (1)</button>
+        <button type="button" class="cat-modal-tab" data-cat="golf">Golf & Window (4)</button>
+        <button type="button" class="cat-modal-tab" data-cat="garden">Garden & Gazebo (2)</button>
+      </div>
+
+      <!-- Catalog Table -->
       <div class="catalog-table-container">
         <div id="catalog-table-content"></div>
       </div>
+
+      <!-- Catalog Footer Note -->
       <div class="catalog-footer-note">
-        <p><i class="fa-solid fa-circle-info"></i> <strong>Ex-Factory Wholesale Terms:</strong> Master carton rates apply. Custom corporate screen printing & OEM private labeling available. Call factory sales desk at <strong>08037734447</strong> for today's freight and master carton dispatch rates.</p>
+        <div class="footer-note-left">
+          <p><i class="fa-solid fa-circle-check"></i> <strong>Ex-Factory Wholesale Terms:</strong> Tiered discounts apply on volume master carton orders. Genuine GST Invoicing on all dispatches.</p>
+        </div>
+        <div class="footer-note-right">
+          <span>Factory Sales Desk: <a href="tel:08037734447"><strong>08037734447</strong></a></span>
+        </div>
       </div>
     </div>
   </div>
@@ -752,7 +784,7 @@
     </button>
   </div>
 
-  <script src="products.js?v=3.0"></script>
-  <script src="script.js?v=3.0"></script>
+  <script src="products.js?v=3.5"></script>
+  <script src="script.js?v=3.5"></script>
 </body>
 </html>

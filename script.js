@@ -1,4 +1,4 @@
-// D PLUS ONE NEW UMBRELLA AND BRAND - PROFESSIONAL ADVANCED INTERACTIVE LOGIC
+// D PLUS ONE NEW UMBRELLA AND BRAND - COMPLETE PROFESSIONAL LOGIC & CATALOG ENGINE
 
 document.addEventListener('DOMContentLoaded', () => {
   const productsContainer = document.getElementById('products-container');
@@ -22,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let currentCategory = 'all';
   let currentSearchQuery = '';
+  let catalogModalCategory = 'all';
 
   // ── Scroll Reveal Animation ──
   const revealElements = document.querySelectorAll('.reveal');
@@ -32,13 +33,13 @@ document.addEventListener('DOMContentLoaded', () => {
         revealObserver.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  }, { threshold: 0.08, rootMargin: '0px 0px -30px 0px' });
   revealElements.forEach(el => revealObserver.observe(el));
 
   // ── Header shrink on scroll ──
   if (header) {
     window.addEventListener('scroll', () => {
-      if (window.scrollY > 80) {
+      if (window.scrollY > 60) {
         header.classList.add('scrolled');
       } else {
         header.classList.remove('scrolled');
@@ -52,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', () => {
     let current = '';
     sections.forEach(section => {
-      const sectionTop = section.offsetTop - 120;
+      const sectionTop = section.offsetTop - 130;
       if (window.scrollY >= sectionTop) {
         current = section.getAttribute('id');
       }
@@ -93,6 +94,18 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ── Category Names Helper ──
+  function getCategoryLabel(cat) {
+    const map = {
+      'fold': 'Fold Series',
+      'stick': '23" Stick Series',
+      'fiber': '25" Fiber Series',
+      'golf': 'Golf & Window',
+      'garden': 'Garden & Gazebo'
+    };
+    return map[cat] || cat.toUpperCase();
+  }
+
   // ── Render Products with Category & Live Search ──
   function renderFilteredProducts() {
     if (!productsContainer) return;
@@ -122,17 +135,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     productsContainer.style.opacity = '0';
-    productsContainer.style.transform = 'translateY(10px)';
+    productsContainer.style.transform = 'translateY(8px)';
 
     setTimeout(() => {
       productsContainer.innerHTML = '';
 
       if (filtered.length === 0) {
         productsContainer.innerHTML = `
-          <div style="grid-column:1/-1;text-align:center;padding:50px 20px;color:#64748b;background:white;border-radius:12px;border:1px solid #e2e8f0;">
-            <i class="fa-solid fa-umbrella" style="font-size:2.5rem;color:#cbd5e1;margin-bottom:12px;"></i>
-            <h4 style="color:#0c1d36;font-size:1.2rem;margin-bottom:6px;">No products match your search</h4>
-            <p style="font-size:0.9rem;">Try searching for "24 inch", "fold", "rainbow", "golf", or clear the filter.</p>
+          <div style="grid-column:1/-1;text-align:center;padding:50px 20px;color:#64748b;background:white;border-radius:14px;border:1px solid #e2e8f0;box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+            <i class="fa-solid fa-umbrella" style="font-size:2.6rem;color:#94a3b8;margin-bottom:12px;"></i>
+            <h4 style="color:#0a1128;font-size:1.2rem;font-weight:800;margin-bottom:6px;">No products match your search</h4>
+            <p style="font-size:0.9rem;color:#64748b;">Try searching for "24 inch", "fold", "rainbow", "golf", or clear the filter.</p>
           </div>
         `;
         productsContainer.style.opacity = '1';
@@ -143,32 +156,54 @@ document.addEventListener('DOMContentLoaded', () => {
       filtered.forEach((product, index) => {
         const card = document.createElement('div');
         card.className = 'product-card';
-        card.style.animationDelay = `${index * 0.05}s`;
+        card.style.animationDelay = `${index * 0.04}s`;
 
-        const badgeHtml = product.badge ? `<span class="badge-top">${product.badge}</span>` : '';
+        const badgeHtml = product.badge ? `<span class="badge-top"><i class="fa-solid fa-tag"></i> ${product.badge}</span>` : '';
+        const catLabel = getCategoryLabel(product.category);
 
-        const specsEntries = Object.entries(product.specs);
-        const specsSummary = specsEntries.slice(0, 3)
-          .map(([k, v], i) => `<div class="${i % 2 === 0 ? 'spec-row-alt' : ''}"><strong>${k}:</strong> <span>${v}</span></div>`).join('');
+        const sizeVal = product.specs['Size'] || 'Standard';
+        const moqVal = product.specs['Factory MOQ'] || '100 Pcs';
+        const typeVal = product.specs['Type'] || product.specs['Feature'] || 'Windproof';
+        const materialVal = product.specs['Material'] || 'High-Grade Polyester';
 
         card.innerHTML = `
           <div class="product-img-wrapper">
             ${badgeHtml}
+            <span class="badge-category">${catLabel}</span>
             <img src="${product.image}" alt="${product.name}" class="product-img" loading="lazy">
             <div class="img-overlay">
-              <button class="overlay-btn view-details-btn" data-id="${product.id}"><i class="fa-solid fa-images"></i> View Gallery & Specs</button>
+              <button class="overlay-btn view-details-btn" data-id="${product.id}">
+                <i class="fa-solid fa-expand"></i> Inspect Specs & Photos
+              </button>
             </div>
           </div>
           <div class="product-info">
-            <span class="product-tag">${product.category.toUpperCase()} SERIES</span>
-            <h4 class="product-title">${product.name}</h4>
-            <p class="product-desc">${product.description}</p>
-            <div class="product-specs-preview">
-              ${specsSummary}
+            <div class="product-title-row">
+              <h4 class="product-title">${product.name}</h4>
             </div>
+            
+            <p class="product-desc">${product.description}</p>
+            
+            <!-- 4-Point Specs Matrix -->
+            <div class="product-specs-chips">
+              <div class="spec-chip"><i class="fa-solid fa-ruler-combined"></i> <span>Size: <strong>${sizeVal}</strong></span></div>
+              <div class="spec-chip"><i class="fa-solid fa-boxes-packing"></i> <span>MOQ: <strong>${moqVal}</strong></span></div>
+              <div class="spec-chip"><i class="fa-solid fa-shield-halved"></i> <span>${typeVal}</span></div>
+              <div class="spec-chip"><i class="fa-solid fa-layer-group"></i> <span>${materialVal}</span></div>
+            </div>
+
+            <!-- Ready Stock Indicator -->
+            <div class="card-stock-indicator">
+              <span class="stock-dot"></span> <span>Factory Direct • Bhiwandi Stock</span>
+            </div>
+
             <div class="product-actions">
-              <button class="btn btn-outline view-details-btn" data-id="${product.id}"><i class="fa-solid fa-list-check"></i> Specs & Photos</button>
-              <a href="#contact" class="btn btn-primary get-quote-btn" data-name="${product.name}" data-moq="${product.specs['Factory MOQ'] || '100 Pcs'}"><i class="fa-solid fa-paper-plane"></i> Bulk Quote</a>
+              <button class="btn btn-outline view-details-btn" data-id="${product.id}">
+                <i class="fa-solid fa-images"></i> Full Specs
+              </button>
+              <a href="#contact" class="btn btn-primary get-quote-btn" data-name="${product.name}" data-moq="${moqVal}">
+                <i class="fa-solid fa-paper-plane"></i> Request Rate
+              </a>
             </div>
           </div>
         `;
@@ -202,7 +237,7 @@ document.addEventListener('DOMContentLoaded', () => {
       productsContainer.style.opacity = '1';
       productsContainer.style.transform = 'translateY(0)';
 
-    }, 150);
+    }, 120);
   }
 
   // ── Live Search Input Listeners ──
@@ -240,7 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // ── Multi-Image Gallery & Dynamic Cursor Zoom in Modal ──
+  // ── Multi-Image Gallery & Dynamic Cursor Zoom in Product Modal ──
   function openProductModal(productId) {
     const product = productsData.find(p => p.id === productId);
     if (!product || !modal || !modalBody) return;
@@ -257,7 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
       thumbnailsHtml = `
         <div class="modal-thumbnails">
           ${allImages.map((img, idx) => `
-            <button class="modal-thumb-btn ${idx === 0 ? 'active' : ''}" data-src="${img}">
+            <button class="modal-thumb-btn ${idx === 0 ? 'active' : ''}" data-src="${img}" title="View Angle ${idx + 1}">
               <img src="${img}" alt="${product.name} angle ${idx + 1}">
             </button>
           `).join('')}
@@ -268,7 +303,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let specsHtml = '';
     Object.entries(product.specs).forEach(([key, val], i) => {
       const rowClass = i % 2 === 0 ? 'style="background:#f8fafc;"' : '';
-      specsHtml += `<tr ${rowClass}><td class="spec-key">${key}</td><td class="spec-val">${val}</td></tr>`;
+      specsHtml += `<tr ${rowClass}><td class="spec-key"><i class="fa-solid fa-check" style="color:#1d4ed8;margin-right:6px;font-size:0.75rem;"></i> ${key}</td><td class="spec-val"><strong>${val}</strong></td></tr>`;
     });
 
     modalBody.innerHTML = `
@@ -281,10 +316,13 @@ document.addEventListener('DOMContentLoaded', () => {
           ${thumbnailsHtml}
         </div>
         <div class="modal-product-info">
-          <span class="modal-badge">${product.badge || 'FACTORY STOCK'}</span>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+            <span class="modal-badge">${product.badge || 'FACTORY STOCK'}</span>
+            <span class="modal-category-tag">${getCategoryLabel(product.category)}</span>
+          </div>
           <h3>${product.name}</h3>
           <p>${product.description}</p>
-          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;">
+          <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:14px;">
             <a href="#contact" class="btn btn-primary" onclick="closeModalAndPreFill('${product.name.replace(/'/g, "\\'")}', '${(product.specs['Factory MOQ'] || '100 Pcs').replace(/'/g, "\\'")}')">
               <i class="fa-solid fa-paper-plane"></i> Request Wholesale Rate Card
             </a>
@@ -295,7 +333,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       </div>
       <div class="modal-specs-section">
-        <h4><i class="fa-solid fa-clipboard-list"></i> Manufacturer Specifications & Packaging</h4>
+        <h4><i class="fa-solid fa-clipboard-list"></i> Complete Technical Specifications & Packaging Data</h4>
         <table class="specs-table">
           ${specsHtml}
         </table>
@@ -315,7 +353,7 @@ document.addEventListener('DOMContentLoaded', () => {
           setTimeout(() => {
             mainImg.src = newSrc;
             mainImg.style.opacity = '1';
-          }, 120);
+          }, 100);
         }
       });
     });
@@ -366,24 +404,41 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ── Wholesale Catalog PDF Generator & Modal ──
-  function openCatalogModal() {
-    if (!catalogModal || !catalogTableContent) return;
+  // ── Wholesale Catalog PDF Generator & Interactive Modal ──
+  function renderCatalogTable(categoryFilter = 'all') {
+    if (!catalogTableContent) return;
+
+    let filtered = productsData;
+    if (categoryFilter !== 'all') {
+      filtered = filtered.filter(p => p.category === categoryFilter);
+    }
 
     let rowsHtml = '';
-    productsData.forEach((p, idx) => {
+    filtered.forEach((p, idx) => {
+      const sizeVal = p.specs['Size'] || '-';
+      const matVal = p.specs['Material'] || 'High-Grade Polyester';
+      const moqVal = p.specs['Factory MOQ'] || '100 Pcs / Ctn';
+      const featureVal = p.specs['Feature'] || p.specs['OEM / Logo Printing'] || 'Windproof Frame, Custom Branding';
+
       rowsHtml += `
         <tr>
-          <td><strong>#${idx + 1}</strong></td>
-          <td><img src="${p.image}" alt="${p.name}" class="catalog-item-thumb"></td>
-          <td>
-            <strong>${p.name}</strong><br>
-            <span style="font-size:0.75rem;color:#2563eb;text-transform:uppercase;font-weight:700;">${p.category} Series</span>
+          <td style="text-align:center;font-weight:800;color:#64748b;">#${idx + 1}</td>
+          <td style="text-align:center;">
+            <img src="${p.image}" alt="${p.name}" class="catalog-item-thumb">
           </td>
-          <td>${p.specs['Size'] || '-'}</td>
-          <td>${p.specs['Material'] || '-'}</td>
-          <td><span style="background:#e0f2fe;color:#0369a1;padding:2px 8px;border-radius:4px;font-weight:700;font-size:0.8rem;">${p.specs['Factory MOQ'] || '100 Pcs'}</span></td>
-          <td style="font-size:0.82rem;">${p.specs['Feature'] || p.specs['OEM / Logo Printing'] || 'Custom Branding Available'}</td>
+          <td>
+            <strong style="color:#0a1128;font-size:0.92rem;display:block;">${p.name}</strong>
+            <span class="catalog-table-category">${getCategoryLabel(p.category)}</span>
+          </td>
+          <td><span class="cat-spec-pill"><i class="fa-solid fa-ruler-combined"></i> ${sizeVal}</span></td>
+          <td style="font-size:0.84rem;color:#334155;">${matVal}</td>
+          <td><span class="catalog-moq-badge">${moqVal}</span></td>
+          <td style="font-size:0.82rem;color:#475569;">${featureVal}</td>
+          <td style="text-align:center;">
+            <button class="btn btn-primary cat-row-inquire-btn" data-name="${p.name}" data-moq="${moqVal}">
+              <i class="fa-solid fa-paper-plane"></i> Inquire
+            </button>
+          </td>
         </tr>
       `;
     });
@@ -392,13 +447,14 @@ document.addEventListener('DOMContentLoaded', () => {
       <table class="catalog-data-table">
         <thead>
           <tr>
-            <th>No.</th>
-            <th>Image</th>
-            <th>Product Model</th>
-            <th>Size</th>
+            <th style="width:40px;text-align:center;">No.</th>
+            <th style="width:70px;text-align:center;">Photo</th>
+            <th>Product Model & Category</th>
+            <th>Canopy Size</th>
             <th>Fabric / Material</th>
             <th>Master Carton MOQ</th>
-            <th>Special Features / OEM</th>
+            <th>Features / OEM</th>
+            <th style="width:110px;text-align:center;">Action</th>
           </tr>
         </thead>
         <tbody>
@@ -407,9 +463,52 @@ document.addEventListener('DOMContentLoaded', () => {
       </table>
     `;
 
+    // Bind row inquire buttons
+    catalogTableContent.querySelectorAll('.cat-row-inquire-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const name = e.currentTarget.getAttribute('data-name');
+        const moq = e.currentTarget.getAttribute('data-moq');
+        if (catalogModal) {
+          catalogModal.classList.remove('active');
+          document.body.style.overflow = '';
+        }
+        const reqInput = document.getElementById('requirement');
+        const inquirySelect = document.getElementById('inquiry-type');
+        if (reqInput) {
+          reqInput.value = `Wholesale Catalog Inquiry: ${name} (MOQ: ${moq}). Please share today's ex-factory master carton pricing and transport LR terms.`;
+          reqInput.focus();
+        }
+        if (inquirySelect) inquirySelect.value = 'wholesale';
+        const contactSection = document.getElementById('contact');
+        if (contactSection) contactSection.scrollIntoView({ behavior: 'smooth' });
+      });
+    });
+  }
+
+  function openCatalogModal() {
+    if (!catalogModal) return;
+
+    // Reset tabs
+    const catTabs = document.querySelectorAll('.cat-modal-tab');
+    catTabs.forEach(t => {
+      if (t.getAttribute('data-cat') === 'all') t.classList.add('active');
+      else t.classList.remove('active');
+    });
+
+    renderCatalogTable('all');
     catalogModal.classList.add('active');
     document.body.style.overflow = 'hidden';
   }
+
+  // Inside Catalog Modal Category Filter Tabs
+  document.querySelectorAll('.cat-modal-tab').forEach(tab => {
+    tab.addEventListener('click', (e) => {
+      document.querySelectorAll('.cat-modal-tab').forEach(t => t.classList.remove('active'));
+      e.currentTarget.classList.add('active');
+      const cat = e.currentTarget.getAttribute('data-cat');
+      renderCatalogTable(cat);
+    });
+  });
 
   if (downloadCatalogBtn) {
     downloadCatalogBtn.addEventListener('click', openCatalogModal);
@@ -457,7 +556,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Populate Calculator Product Dropdown
   if (calcProductSelect && productsData.length > 0) {
     calcProductSelect.innerHTML = productsData.map(p => `
-      <option value="${p.id}">${p.name} (${p.category.toUpperCase()} - ${p.specs['Size'] || ''})</option>
+      <option value="${p.id}">${p.name} (${getCategoryLabel(p.category)} - ${p.specs['Size'] || ''})</option>
     `).join('');
   }
 
@@ -479,9 +578,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const cartons = Math.ceil(qty / pcsPerCarton);
-    const estWeightKg = Math.round(qty * 0.44); // avg ~440g per umbrella + carton weight
+    const estWeightKg = Math.round(qty * 0.44);
 
-    // Transit time based on region
     const transitTimes = {
       mh: 'Same Day / 24h',
       guj: '24 to 48 Hours',
@@ -497,7 +595,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (metricWeight) metricWeight.textContent = `~${estWeightKg} Kg`;
     if (metricTransit) metricTransit.textContent = transitTimes[region] || '24-48 Hours';
 
-    // Update Quick Quote button click action
     if (calcOrderBtn) {
       calcOrderBtn.onclick = () => {
         const reqInput = document.getElementById('requirement');
@@ -537,7 +634,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Initial calculator computation
   updateCalculator();
 
   // ── B2B FAQ Accordion Logic ──
@@ -582,7 +678,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const el = entry.target;
         const target = el.getAttribute('data-target');
         if (target && !isNaN(parseInt(target))) {
-          animateCounter(el, 0, parseInt(target), 1500);
+          animateCounter(el, 0, parseInt(target), 1400);
         }
         counterObserver.unobserve(el);
       }
@@ -611,16 +707,12 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       const name = document.getElementById('name').value;
       const mobile = document.getElementById('mobile').value;
-      const inquiryType = document.getElementById('inquiry-type');
-      const city = document.getElementById('city').value;
-      const requirement = document.getElementById('requirement').value;
 
       if (!name || !mobile) {
         alert('Please enter your contact name and mobile number.');
         return;
       }
 
-      // Show success state
       const submitBtn = quoteForm.querySelector('button[type="submit"]');
       if (submitBtn) {
         const originalHtml = submitBtn.innerHTML;
