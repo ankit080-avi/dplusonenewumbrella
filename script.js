@@ -622,15 +622,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (printBrochureBtn) {
     printBrochureBtn.addEventListener('click', () => {
-      // Show all pages before printing
+      // Ensure all 21 pages are rendered and visible
       const pages = brochurePagesContainer.querySelectorAll('.brochure-page');
       pages.forEach(p => p.style.display = 'flex');
       document.body.classList.add('printing-brochure');
-      window.print();
+      
       setTimeout(() => {
-        document.body.classList.remove('printing-brochure');
-        updateBrochureView();
-      }, 500);
+        window.print();
+        setTimeout(() => {
+          document.body.classList.remove('printing-brochure');
+          updateBrochureView();
+        }, 800);
+      }, 150);
     });
   }
 

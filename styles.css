@@ -2511,76 +2511,143 @@ footer {
 
 /* ── Print Styles (Multi-Page Visual Brochure & Rate Card PDF) ── */
 @media print {
-  body * { visibility: hidden; }
-  
-  /* If Visual Brochure Modal is active */
-  body.printing-brochure #visual-catalog-modal,
-  body.printing-brochure #visual-catalog-modal * {
-    visibility: visible;
+  @page {
+    size: A4 portrait;
+    margin: 8mm;
   }
+  
+  html, body {
+    background: #ffffff !important;
+    color: #000000 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    height: auto !important;
+    overflow: visible !important;
+  }
+  
+  header, footer, .top-bar, .stats-banner, #home, #distributor-perks, #factory-tour, #products, #calculator, #about, #corporate-oem, #logistics, #testimonials, #faq, #contact, .floating-whatsapp, .mobile-bottom-bar, #product-modal {
+    display: none !important;
+  }
+
+  /* ── 1. If Visual Brochure Printing ── */
   body.printing-brochure #visual-catalog-modal {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    background: white;
-    padding: 0;
     display: block !important;
-    overflow: visible;
+    position: static !important;
+    background: #ffffff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+    width: 100% !important;
+    height: auto !important;
+    inset: auto !important;
+  }
+  body.printing-brochure #catalog-modal {
+    display: none !important;
   }
   body.printing-brochure .brochure-modal-content {
-    box-shadow: none;
-    padding: 0;
-    max-width: 100%;
-    height: auto;
-    background: white;
-    border-radius: 0;
+    display: block !important;
+    position: static !important;
+    background: #ffffff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+    height: auto !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+    overflow: visible !important;
   }
   body.printing-brochure .close-modal,
+  body.printing-brochure .close-brochure-modal,
   body.printing-brochure .brochure-toolbar {
     display: none !important;
   }
   body.printing-brochure .brochure-viewport {
-    padding: 0;
-    background: white;
-    overflow: visible;
-  }
-  body.printing-brochure .brochure-pages-container {
-    max-width: 100%;
-    gap: 0;
-  }
-  body.printing-brochure .brochure-page {
-    page-break-after: always;
-    break-after: page;
-    box-shadow: none;
-    margin: 0;
-    width: 100vw;
-    height: 100vh;
-    border-radius: 0;
-    padding: 28px;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-
-  /* If Rate Card Modal is active */
-  body:not(.printing-brochure) #catalog-modal,
-  body:not(.printing-brochure) #catalog-modal * {
-    visibility: visible;
-  }
-  body:not(.printing-brochure) #catalog-modal {
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    background: white;
-    padding: 0;
+    background: #ffffff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
     display: block !important;
   }
+  body.printing-brochure .brochure-pages-container {
+    max-width: 100% !important;
+    display: block !important;
+    gap: 0 !important;
+    margin: 0 !important;
+  }
+  body.printing-brochure .brochure-page {
+    display: flex !important;
+    page-break-after: always !important;
+    break-after: page !important;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    background: #ffffff !important;
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 0 20px 0 !important;
+    padding: 8px !important;
+    width: 100% !important;
+    height: 275mm !important;
+    min-height: 275mm !important;
+    box-sizing: border-box !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  body.printing-brochure .brochure-inner-frame {
+    border: 1.5px dashed #94a3b8 !important;
+    background: #ffffff !important;
+    height: 100% !important;
+    box-sizing: border-box !important;
+    padding: 16px 20px 14px !important;
+  }
+  body.printing-brochure .brochure-page-body {
+    background: #ffffff !important;
+  }
+  body.printing-brochure .brochure-product-img {
+    mix-blend-mode: normal !important;
+    filter: none !important;
+    -webkit-filter: none !important;
+    background: transparent !important;
+  }
+  body.printing-brochure .brochure-watermark {
+    color: rgba(10, 17, 40, 0.04) !important;
+  }
+  body.printing-brochure .brochure-packaging-badge {
+    background: #78350f !important;
+    color: #ffffff !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  body.printing-brochure .brochure-page-num {
+    background: #0a1128 !important;
+    color: #fbbf24 !important;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+
+  /* ── 2. If Rate Card Printing ── */
+  body:not(.printing-brochure) #catalog-modal {
+    display: block !important;
+    position: static !important;
+    background: #ffffff !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    box-shadow: none !important;
+    width: 100% !important;
+    height: auto !important;
+    inset: auto !important;
+  }
+  body:not(.printing-brochure) #visual-catalog-modal {
+    display: none !important;
+  }
   body:not(.printing-brochure) .catalog-modal-content {
-    box-shadow: none;
-    padding: 0;
-    max-width: 100%;
-    max-height: none;
+    background: #ffffff !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+    height: auto !important;
   }
   body:not(.printing-brochure) .close-modal,
   body:not(.printing-brochure) .catalog-print-btn-wrap,
@@ -2589,14 +2656,14 @@ footer {
     display: none !important;
   }
   body:not(.printing-brochure) .catalog-table-container {
-    max-height: none;
-    overflow: visible;
-    border: 1px solid #cbd5e1;
+    max-height: none !important;
+    overflow: visible !important;
+    border: 1px solid #cbd5e1 !important;
   }
   body:not(.printing-brochure) .catalog-data-table th {
     background: #0a1128 !important;
     color: white !important;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
   }
 }
