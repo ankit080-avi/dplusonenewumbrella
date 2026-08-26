@@ -437,7 +437,9 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
 
         <div class="cover-center-brand">
-          <div class="cover-emblem-large"><i class="fa-solid fa-umbrella"></i></div>
+          <div class="cover-official-logo-box">
+            <img src="logo.png" alt="D Plus One New Umbrella and Brand Logo" class="cover-official-logo-large">
+          </div>
           <h1 class="cover-brand-name">D PLUS ONE NEW UMBRELLA AND BRAND</h1>
           <p class="cover-brand-sub">Premier Umbrella Manufacturer & Wholesale Distributor</p>
           <div style="font-size:0.85rem;color:#1d4ed8;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-top:6px;">
@@ -479,10 +481,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
       pageEl.innerHTML = `
         <div class="brochure-inner-frame">
-          <!-- Page Header -->
+          <!-- Page Header with Official Client Logo -->
           <div class="brochure-page-header">
             <div class="brochure-brand-logo-unit">
-              <div class="brochure-mini-emblem"><i class="fa-solid fa-umbrella"></i></div>
+              <div class="brochure-official-logo-badge">
+                <img src="logo.png" alt="D Plus One Logo" class="brochure-official-logo">
+              </div>
               <div class="brochure-mini-brand-name">
                 D PLUS ONE NEW UMBRELLA AND BRAND
                 <span>DIRECT MANUFACTURER • BHIWANDI</span>
@@ -491,9 +495,9 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="brochure-series-tag">${catName}</div>
           </div>
 
-          <!-- Page Body & Large Product Image -->
+          <!-- Page Body & Giant Product Hero Image with Logo Watermark -->
           <div class="brochure-page-body">
-            <div class="brochure-watermark">D PLUS ONE</div>
+            <img src="logo.png" alt="D Plus One Watermark Logo" class="brochure-logo-watermark">
             <img src="${p.image}" alt="${p.name}" class="brochure-product-img" loading="lazy">
           </div>
 
