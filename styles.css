@@ -179,16 +179,16 @@ header.scrolled {
   color: var(--primary);
 }
 .brand-icon {
-  width: 44px;
-  height: 44px;
+  width: 58px;
+  height: 58px;
   background: white;
   border: 1.5px solid var(--border);
-  border-radius: 10px;
+  border-radius: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2px;
-  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.08);
+  padding: 3px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.1);
   flex-shrink: 0;
   overflow: hidden;
 }
@@ -199,17 +199,16 @@ header.scrolled {
 }
 .brand-text h1 {
   font-family: var(--font-display);
-  font-size: 1.25rem;
+  font-size: 1.45rem;
   font-weight: 900;
-  line-height: 1.1;
+  line-height: 1.05;
   letter-spacing: -0.02em;
   color: var(--primary);
 }
 .brand-text p {
-  font-size: 0.65rem;
+  font-size: 0.72rem;
   color: var(--gold);
   font-weight: 800;
-  text-transform: uppercase;
   letter-spacing: 0.8px;
   margin-top: 1px;
 }
@@ -2077,17 +2076,19 @@ textarea.form-control { resize: vertical; min-height: 100px; }
 .brochure-brand-logo-unit {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
 }
 .brochure-official-logo-badge {
-  width: 40px;
-  height: 40px;
+  width: 62px;
+  height: 62px;
   background: #ffffff;
-  border-radius: 8px;
+  border: 1.5px solid #e2e8f0;
+  border-radius: 10px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2px;
+  padding: 4px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   flex-shrink: 0;
 }
 .brochure-official-logo {
@@ -2097,7 +2098,7 @@ textarea.form-control { resize: vertical; min-height: 100px; }
 }
 .brochure-mini-brand-name {
   font-family: var(--font-display);
-  font-size: 0.76rem;
+  font-size: 0.88rem;
   font-weight: 900;
   color: #0a1128;
   letter-spacing: -0.01em;
@@ -2106,10 +2107,11 @@ textarea.form-control { resize: vertical; min-height: 100px; }
 }
 .brochure-mini-brand-name span {
   display: block;
-  font-size: 0.6rem;
+  font-size: 0.66rem;
   color: var(--gold);
   font-weight: 800;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.6px;
+  margin-top: 1px;
 }
 .brochure-series-tag {
   font-family: var(--font-display);
@@ -2135,8 +2137,8 @@ textarea.form-control { resize: vertical; min-height: 100px; }
 .brochure-logo-watermark {
   position: absolute;
   width: auto;
-  max-width: 50%;
-  max-height: 240px;
+  max-width: 65%;
+  max-height: 320px;
   object-fit: contain;
   opacity: 0.055;
   user-select: none;
@@ -2145,16 +2147,16 @@ textarea.form-control { resize: vertical; min-height: 100px; }
   mix-blend-mode: multiply;
 }
 .cover-official-logo-box {
-  width: 110px;
-  height: 110px;
+  width: 160px;
+  height: 160px;
   background: #ffffff;
-  border-radius: 16px;
-  padding: 8px;
-  margin-bottom: 8px;
+  border-radius: 20px;
+  padding: 12px;
+  margin-bottom: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
 }
 .cover-official-logo-large {
   width: 100%;
@@ -2172,23 +2174,23 @@ textarea.form-control { resize: vertical; min-height: 100px; }
   object-fit: contain;
 }
 .catalog-logo-icon {
-  width: 44px;
-  height: 44px;
+  width: 60px;
+  height: 60px;
   background: white;
   border: 1.5px solid var(--border);
-  border-radius: 10px;
-  padding: 2px;
+  border-radius: 12px;
+  padding: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
 }
 .footer-logo-badge {
-  width: 38px;
-  height: 38px;
+  width: 52px;
+  height: 52px;
   background: white;
-  border-radius: 8px;
-  padding: 3px;
+  border-radius: 10px;
+  padding: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
