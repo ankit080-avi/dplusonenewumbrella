@@ -2224,30 +2224,88 @@ textarea.form-control { resize: vertical; min-height: 100px; }
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  gap: 12px;
+  gap: 14px;
   position: relative;
-  padding-bottom: 8px;
+  padding-top: 4px;
+  padding-bottom: 6px;
 }
 .brochure-product-title-wrap {
   flex: 1;
 }
+.brochure-badge-line {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+.brochure-category-pill {
+  background: rgba(37,99,235,0.09);
+  color: #1d4ed8;
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+.brochure-moq-pill {
+  background: rgba(5,150,105,0.09);
+  color: #059669;
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
+.brochure-season-pill {
+  background: rgba(120,53,15,0.08);
+  color: #92400e;
+  font-family: var(--font-display);
+  font-size: 0.68rem;
+  font-weight: 800;
+  padding: 2px 7px;
+  border-radius: 4px;
+}
 .brochure-product-title {
   font-family: var(--font-display);
-  font-size: clamp(1.2rem, 2.5vw, 1.55rem);
+  font-size: clamp(1.2rem, 2.3vw, 1.5rem);
   font-weight: 900;
   color: #0a1128;
   letter-spacing: -0.02em;
-  line-height: 1.15;
+  line-height: 1.12;
   text-transform: uppercase;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
-.brochure-product-specs-line {
+.brochure-specs-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 4px 10px;
+  margin-bottom: 6px;
+}
+.brochure-spec-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
   font-size: 0.74rem;
   color: #475569;
-  font-weight: 600;
 }
-.brochure-product-specs-line strong {
+.brochure-spec-item i {
+  color: #1d4ed8;
+  font-size: 0.74rem;
+  width: 13px;
+  flex-shrink: 0;
+}
+.brochure-spec-item strong {
   color: #0a1128;
+  font-weight: 800;
+}
+.brochure-mini-desc {
+  font-size: 0.71rem;
+  color: #64748b;
+  line-height: 1.35;
+  margin: 0;
+  max-width: 95%;
 }
 
 .brochure-badge-column {

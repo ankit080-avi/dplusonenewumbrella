@@ -505,12 +505,34 @@ document.addEventListener('DOMContentLoaded', () => {
           <div>
             <div class="brochure-page-footer-content">
               <div class="brochure-product-title-wrap">
-                <h3 class="brochure-product-title">${p.name}</h3>
-                <div class="brochure-product-specs-line">
-                  <span>Size: <strong>${sizeVal}</strong></span> &nbsp;|&nbsp;
-                  <span>Fabric: <strong>${materialVal}</strong></span> &nbsp;|&nbsp;
-                  <span>Feature: <strong>${featureVal}</strong></span>
+                <div class="brochure-badge-line">
+                  <span class="brochure-category-pill">${catName}</span>
+                  <span class="brochure-moq-pill"><i class="fa-solid fa-boxes-packing"></i> Factory MOQ: ${moqVal}</span>
+                  <span class="brochure-season-pill"><i class="fa-solid fa-cloud-showers-heavy"></i> ${p.specs['Season'] || 'Heavy Rain / All Weather'}</span>
                 </div>
+                <h3 class="brochure-product-title">${p.name}</h3>
+                
+                <!-- Complete Technical Specifications Grid -->
+                <div class="brochure-specs-grid">
+                  <div class="brochure-spec-item">
+                    <i class="fa-solid fa-ruler-combined"></i>
+                    <span>Size: <strong>${sizeVal}</strong></span>
+                  </div>
+                  <div class="brochure-spec-item">
+                    <i class="fa-solid fa-layer-group"></i>
+                    <span>Fabric: <strong>${materialVal}</strong></span>
+                  </div>
+                  <div class="brochure-spec-item">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <span>Frame: <strong>${featureVal}</strong></span>
+                  </div>
+                  <div class="brochure-spec-item">
+                    <i class="fa-solid fa-palette"></i>
+                    <span>Colors: <strong>${p.specs['Colors'] || 'Assorted Multiple Colors'}</strong></span>
+                  </div>
+                </div>
+
+                <p class="brochure-mini-desc">${p.description}</p>
               </div>
 
               <div class="brochure-badge-column">
@@ -527,7 +549,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             <!-- Page Subfooter -->
             <div class="brochure-page-subfooter">
-              🌐 www.dplusonenewumbrella.com &nbsp;|&nbsp; 📞 08037734447 &nbsp;|&nbsp; 🏭 Direct Bhiwandi Factory
+              🌐 www.dplusonenewumbrella.com &nbsp;|&nbsp; 📞 08037734447 &nbsp;|&nbsp; 🏭 Direct Bhiwandi Factory • GSTIN: 27GGVPP4625K1ZH
             </div>
           </div>
         </div>
