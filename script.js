@@ -433,30 +433,30 @@ document.addEventListener('DOMContentLoaded', () => {
       <div class="brochure-cover-inner">
         <div>
           <h2 class="cover-top-title">Product Catalog</h2>
-          <span class="cover-edition-badge"><i class="fa-solid fa-award"></i> Official 2026 Wholesale Edition</span>
+          <span class="cover-edition-badge"><i class="fa-solid fa-award"></i> Official 2026 Wholesale Exporter Edition</span>
         </div>
 
         <div class="cover-center-brand">
           <div class="cover-emblem-large"><i class="fa-solid fa-umbrella"></i></div>
-          <h1 class="cover-brand-name">D PLUS ONE</h1>
-          <p class="cover-brand-sub">NEW UMBRELLA AND BRAND</p>
-          <div style="font-size:0.85rem;color:#1d4ed8;font-weight:800;letter-spacing:1px;text-transform:uppercase;">
-            Manufacturer & Pan-India Wholesale Distributor
+          <h1 class="cover-brand-name">D PLUS ONE NEW UMBRELLA AND BRAND</h1>
+          <p class="cover-brand-sub">Premier Umbrella Manufacturer & Wholesale Distributor</p>
+          <div style="font-size:0.85rem;color:#1d4ed8;font-weight:800;letter-spacing:1px;text-transform:uppercase;margin-top:6px;">
+            Factory: Bhiwandi, Maharashtra • GSTIN: 27GGVPP4625K1ZH
           </div>
         </div>
 
         <div>
           <div class="cover-series-grid">
-            <span class="cover-series-chip"><i class="fa-solid fa-circle-check" style="color:#2563eb;"></i> Fold Series</span>
-            <span class="cover-series-chip"><i class="fa-solid fa-circle-check" style="color:#2563eb;"></i> 23" Stick Series</span>
-            <span class="cover-series-chip"><i class="fa-solid fa-circle-check" style="color:#2563eb;"></i> 25" Fiber Series</span>
-            <span class="cover-series-chip"><i class="fa-solid fa-circle-check" style="color:#2563eb;"></i> Golf & Window Series</span>
-            <span class="cover-series-chip"><i class="fa-solid fa-circle-check" style="color:#2563eb;"></i> Garden Canopies</span>
+            <span class="cover-series-chip"><i class="fa-solid fa-circle-check" style="color:#2563eb;"></i> Fold Series (8 Models)</span>
+            <span class="cover-series-chip"><i class="fa-solid fa-circle-check" style="color:#2563eb;"></i> 23" Stick Series (5 Models)</span>
+            <span class="cover-series-chip"><i class="fa-solid fa-circle-check" style="color:#2563eb;"></i> 25" Fiber Series (1 Model)</span>
+            <span class="cover-series-chip"><i class="fa-solid fa-circle-check" style="color:#2563eb;"></i> Golf & Window Series (4 Models)</span>
+            <span class="cover-series-chip"><i class="fa-solid fa-circle-check" style="color:#2563eb;"></i> Garden Canopies (2 Models)</span>
           </div>
 
           <div class="cover-footer-meta">
-            <p><strong>Factory & Warehouse:</strong> Bhiwandi Industrial Corridor, Thane, Maharashtra — 421302</p>
-            <p><strong>GSTIN:</strong> 27GGVPP4625K1ZH &nbsp;|&nbsp; <strong>Helpline:</strong> 08037734447 &nbsp;|&nbsp; <strong>Web:</strong> www.dplusonenewumbrella.com</p>
+            <p><strong>Factory & Central Warehouse:</strong> Bhiwandi Industrial Corridor, Thane, Maharashtra — 421302</p>
+            <p><strong>GSTIN:</strong> 27GGVPP4625K1ZH &nbsp;|&nbsp; <strong>Helpline:</strong> 08037734447 &nbsp;|&nbsp; <strong>Email:</strong> sales@dplusonenewumbrella.com</p>
           </div>
         </div>
       </div>
@@ -484,16 +484,16 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="brochure-brand-logo-unit">
               <div class="brochure-mini-emblem"><i class="fa-solid fa-umbrella"></i></div>
               <div class="brochure-mini-brand-name">
-                D PLUS ONE
-                <span>UMBRELLA</span>
+                D PLUS ONE NEW UMBRELLA AND BRAND
+                <span>DIRECT MANUFACTURER • BHIWANDI</span>
               </div>
             </div>
             <div class="brochure-series-tag">${catName}</div>
           </div>
 
-          <!-- Page Body & Product Image -->
+          <!-- Page Body & Large Product Image -->
           <div class="brochure-page-body">
-            <div class="brochure-watermark">UMBRELLA</div>
+            <div class="brochure-watermark">D PLUS ONE</div>
             <img src="${p.image}" alt="${p.name}" class="brochure-product-img" loading="lazy">
           </div>
 
