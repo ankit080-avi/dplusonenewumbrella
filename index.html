@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <link rel="stylesheet" href="styles.css?v=3.5">
+  <link rel="stylesheet" href="styles.css?v=4.0">
 </head>
 <body>
 
@@ -51,8 +51,10 @@
         <li><a href="#contact">Contact</a></li>
       </ul>
 
-      <div style="display:flex;gap:10px;align-items:center;">
-        <a href="#contact" class="btn btn-primary"><i class="fa-solid fa-truck-ramp-box"></i> Bulk Quote</a>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <button id="nav-visual-catalog-btn" class="btn btn-accent" style="padding:8px 12px;font-size:0.8rem;"><i class="fa-solid fa-book-open"></i> Visual Catalog</button>
+        <button id="nav-rate-card-btn" class="btn btn-outline" style="padding:8px 12px;font-size:0.8rem;"><i class="fa-solid fa-table-list"></i> Rate Card</button>
+        <a href="#contact" class="btn btn-primary" style="padding:8px 14px;font-size:0.8rem;"><i class="fa-solid fa-truck-ramp-box"></i> Bulk Quote</a>
         <div class="mobile-toggle" id="mobile-menu-btn"><i class="fa-solid fa-bars"></i></div>
       </div>
     </div>
@@ -65,9 +67,10 @@
       <h2>India's Trusted Manufacturer of Premium Umbrellas & Weather Protection</h2>
       <p>High-quality 23 Inch Stick Umbrellas, 24 Inch Fold Umbrellas, 25 Inch Fiber Umbrellas, Golf Fiber Black Silver Umbrellas, 30 Inch Fiber Golf Umbrellas, Garden Umbrellas & Gazebo Tents — manufactured in Bhiwandi, supplied pan-India.</p>
       <div class="hero-btns">
-        <a href="#products" class="btn btn-primary"><i class="fa-solid fa-boxes-stacked"></i> View Product Catalog</a>
-        <button id="download-catalog-btn" class="btn btn-white-outline"><i class="fa-solid fa-file-pdf"></i> Download 2026 Catalog (PDF)</button>
-        <a href="#contact" class="btn btn-accent"><i class="fa-solid fa-handshake"></i> Become a Distributor</a>
+        <button id="open-visual-catalog-btn" class="btn btn-accent" style="font-size:0.95rem;padding:12px 22px;"><i class="fa-solid fa-book-open"></i> 2026 Visual Catalog (PDF)</button>
+        <button id="download-catalog-btn" class="btn btn-white-outline"><i class="fa-solid fa-table-list"></i> Wholesale Rate Card (Table)</button>
+        <a href="#products" class="btn btn-primary"><i class="fa-solid fa-boxes-stacked"></i> Explore All Products</a>
+        <a href="#contact" class="btn btn-outline" style="color:white;border-color:rgba(255,255,255,0.4);"><i class="fa-solid fa-handshake"></i> Become a Distributor</a>
       </div>
     </div>
     <div class="hero-fade"></div>
@@ -723,6 +726,56 @@
     </div>
   </div>
 
+  <!-- ═══════ 2026 Full Visual Catalog PDF Brochure Modal (AKC Style Multi-Page) ═══════ -->
+  <div id="visual-catalog-modal" class="modal visual-brochure-modal">
+    <div class="modal-content brochure-modal-content">
+      <span class="close-modal close-brochure-modal">&times;</span>
+      
+      <!-- Top Toolbar -->
+      <div class="brochure-toolbar">
+        <div class="brochure-brand-title">
+          <div class="brochure-logo-circle"><i class="fa-solid fa-umbrella"></i></div>
+          <div>
+            <h4>D PLUS ONE NEW UMBRELLA AND BRAND</h4>
+            <span>Official 2026 Wholesale Product Catalog & Exporter Brochure</span>
+          </div>
+        </div>
+
+        <div class="brochure-controls">
+          <!-- Jump to Section -->
+          <select id="brochure-series-select" class="brochure-select">
+            <option value="0">📖 Cover Page (00)</option>
+            <option value="1">☂️ Fold Series (Pages 01 - 08)</option>
+            <option value="9">🎯 23" Stick Series (Pages 09 - 13)</option>
+            <option value="14">🛡️ 25" Fiber Series (Page 14)</option>
+            <option value="15">⛳ Golf & Window (Pages 15 - 18)</option>
+            <option value="19">⛱️ Garden & Gazebo (Pages 19 - 20)</option>
+          </select>
+
+          <!-- Page Navigation -->
+          <div class="brochure-nav-btns">
+            <button id="brochure-prev-btn" class="btn btn-outline brochure-btn" title="Previous Page"><i class="fa-solid fa-chevron-left"></i> Prev</button>
+            <span id="brochure-page-indicator" class="page-indicator-badge">Page 1 / 21</span>
+            <button id="brochure-next-btn" class="btn btn-outline brochure-btn" title="Next Page">Next <i class="fa-solid fa-chevron-right"></i></button>
+          </div>
+
+          <!-- View Mode Toggle -->
+          <button id="brochure-view-toggle" class="btn btn-outline brochure-btn" title="Toggle View Mode"><i class="fa-solid fa-scroll"></i> View All 21 Pages</button>
+
+          <!-- Print / Save as PDF -->
+          <button id="print-brochure-action" class="btn btn-primary brochure-btn"><i class="fa-solid fa-file-pdf"></i> Print / Save PDF</button>
+        </div>
+      </div>
+
+      <!-- Brochure Pages Viewport -->
+      <div class="brochure-viewport" id="brochure-viewport">
+        <div class="brochure-pages-container" id="brochure-pages-container">
+          <!-- Dynamically populated 21 AKC-style brochure pages -->
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Floating Quick Connect / Call Button -->
   <a href="tel:08037734447" class="floating-whatsapp" title="Call Us Now: 08037734447">
     <i class="fa-solid fa-phone-volume"></i>
@@ -777,14 +830,17 @@
   <!-- Mobile Sticky Bottom Quick Action Bar -->
   <div class="mobile-bottom-bar">
     <a href="tel:08037734447" class="bottom-bar-btn btn-call">
-      <i class="fa-solid fa-phone"></i> Call Factory: 08037734447
+      <i class="fa-solid fa-phone"></i> Call
     </a>
-    <button type="button" class="bottom-bar-btn btn-catalog" id="mobile-catalog-trigger">
-      <i class="fa-solid fa-file-pdf"></i> 2026 Catalog
+    <button type="button" class="bottom-bar-btn btn-catalog" id="mobile-visual-catalog-trigger">
+      <i class="fa-solid fa-book-open"></i> Visual Catalog
+    </button>
+    <button type="button" class="bottom-bar-btn btn-rate-card" id="mobile-catalog-trigger">
+      <i class="fa-solid fa-table-list"></i> Rate Card
     </button>
   </div>
 
-  <script src="products.js?v=3.5"></script>
-  <script src="script.js?v=3.5"></script>
+  <script src="products.js?v=4.0"></script>
+  <script src="script.js?v=4.0"></script>
 </body>
 </html>

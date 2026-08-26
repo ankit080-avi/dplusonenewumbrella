@@ -1,4 +1,5 @@
-// D PLUS ONE NEW UMBRELLA AND BRAND - COMPLETE PROFESSIONAL LOGIC & CATALOG ENGINE
+// D PLUS ONE NEW UMBRELLA AND BRAND - COMPLETE PROFESSIONAL LOGIC & DUAL CATALOG ENGINE
+// Features: Visual Brochure (AKC Multi-Page Style) + Wholesale Rate Card (Table) + Instant Search + Calculator
 
 document.addEventListener('DOMContentLoaded', () => {
   const productsContainer = document.getElementById('products-container');
@@ -10,19 +11,41 @@ document.addEventListener('DOMContentLoaded', () => {
   const navLinks = document.querySelector('.nav-links');
   const quoteForm = document.getElementById('inquiry-form');
   const header = document.querySelector('header');
+  
+  // Rate Card Elements
   const downloadCatalogBtn = document.getElementById('download-catalog-btn');
+  const navRateCardBtn = document.getElementById('nav-rate-card-btn');
   const catalogModal = document.getElementById('catalog-modal');
   const closeCatalogModalBtn = document.querySelector('.close-catalog-modal');
   const printCatalogBtn = document.getElementById('print-catalog-action');
   const catalogTableContent = document.getElementById('catalog-table-content');
+  const mobileCatalogTrigger = document.getElementById('mobile-catalog-trigger');
+
+  // Visual Brochure Elements
+  const visualCatalogModal = document.getElementById('visual-catalog-modal');
+  const closeBrochureModalBtn = document.querySelector('.close-brochure-modal');
+  const openVisualCatalogBtn = document.getElementById('open-visual-catalog-btn');
+  const navVisualCatalogBtn = document.getElementById('nav-visual-catalog-btn');
+  const mobileVisualCatalogTrigger = document.getElementById('mobile-visual-catalog-trigger');
+  const brochurePagesContainer = document.getElementById('brochure-pages-container');
+  const brochurePrevBtn = document.getElementById('brochure-prev-btn');
+  const brochureNextBtn = document.getElementById('brochure-next-btn');
+  const brochurePageIndicator = document.getElementById('brochure-page-indicator');
+  const brochureSeriesSelect = document.getElementById('brochure-series-select');
+  const brochureViewToggle = document.getElementById('brochure-view-toggle');
+  const printBrochureBtn = document.getElementById('print-brochure-action');
+  const brochureViewport = document.getElementById('brochure-viewport');
+
+  // Search Elements
   const searchInput = document.getElementById('product-search-input');
   const searchClearBtn = document.getElementById('search-clear-btn');
   const searchCountBadge = document.getElementById('search-count-badge');
-  const mobileCatalogTrigger = document.getElementById('mobile-catalog-trigger');
 
   let currentCategory = 'all';
   let currentSearchQuery = '';
-  let catalogModalCategory = 'all';
+  let currentBrochurePageIndex = 0;
+  let isBrochureAllView = false;
+  const totalBrochurePages = productsData.length + 1; // 1 Cover + 20 Product Pages = 21 Pages
 
   // ── Scroll Reveal Animation ──
   const revealElements = document.querySelectorAll('.reveal');
@@ -112,12 +135,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let filtered = productsData;
 
-    // Filter by Category
     if (currentCategory !== 'all') {
       filtered = filtered.filter(p => p.category === currentCategory);
     }
 
-    // Filter by Search Query
     if (currentSearchQuery.trim() !== '') {
       const q = currentSearchQuery.toLowerCase().trim();
       filtered = filtered.filter(p => {
@@ -129,7 +150,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
 
-    // Update result count badge
     if (searchCountBadge) {
       searchCountBadge.textContent = `Showing ${filtered.length} Product${filtered.length === 1 ? '' : 's'}`;
     }
@@ -184,7 +204,6 @@ document.addEventListener('DOMContentLoaded', () => {
             
             <p class="product-desc">${product.description}</p>
             
-            <!-- 4-Point Specs Matrix -->
             <div class="product-specs-chips">
               <div class="spec-chip"><i class="fa-solid fa-ruler-combined"></i> <span>Size: <strong>${sizeVal}</strong></span></div>
               <div class="spec-chip"><i class="fa-solid fa-boxes-packing"></i> <span>MOQ: <strong>${moqVal}</strong></span></div>
@@ -192,7 +211,6 @@ document.addEventListener('DOMContentLoaded', () => {
               <div class="spec-chip"><i class="fa-solid fa-layer-group"></i> <span>${materialVal}</span></div>
             </div>
 
-            <!-- Ready Stock Indicator -->
             <div class="card-stock-indicator">
               <span class="stock-dot"></span> <span>Factory Direct • Bhiwandi Stock</span>
             </div>
@@ -211,7 +229,6 @@ document.addEventListener('DOMContentLoaded', () => {
         productsContainer.appendChild(card);
       });
 
-      // Bind modal & quote listeners
       document.querySelectorAll('.view-details-btn').forEach(btn => {
         btn.addEventListener('click', (e) => {
           const prodId = parseInt(e.currentTarget.getAttribute('data-id'));
@@ -265,7 +282,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ── Category Tab Listeners ──
   categoryTabs.forEach(tab => {
     tab.addEventListener('click', () => {
       categoryTabs.forEach(t => t.classList.remove('active'));
@@ -275,7 +291,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // ── Multi-Image Gallery & Dynamic Cursor Zoom in Product Modal ──
+  // ── Product Specs Modal ──
   function openProductModal(productId) {
     const product = productsData.find(p => p.id === productId);
     if (!product || !modal || !modalBody) return;
@@ -340,7 +356,6 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     `;
 
-    // Thumbnail Switcher
     const thumbBtns = modalBody.querySelectorAll('.modal-thumb-btn');
     const mainImg = modalBody.querySelector('#main-modal-image');
     thumbBtns.forEach(btn => {
@@ -358,7 +373,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Dynamic Cursor Zoom Lens
     const zoomContainer = modalBody.querySelector('#zoom-img-container');
     if (zoomContainer && mainImg) {
       zoomContainer.addEventListener('mousemove', (e) => {
@@ -404,7 +418,241 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ── Wholesale Catalog PDF Generator & Interactive Modal ──
+  // ═══════════════════════════════════════════════════════════
+  // 1. 2026 VISUAL CATALOG BROCHURE (AKC MULTI-PAGE STYLE)
+  // ═══════════════════════════════════════════════════════════
+  function buildVisualBrochurePages() {
+    if (!brochurePagesContainer) return;
+    brochurePagesContainer.innerHTML = '';
+
+    // Page 0: Cover Page
+    const coverPage = document.createElement('div');
+    coverPage.className = 'brochure-page brochure-cover-page';
+    coverPage.setAttribute('data-page-index', '0');
+    coverPage.innerHTML = `
+      <div class="brochure-cover-inner">
+        <div>
+          <h2 class="cover-top-title">Product Catalog</h2>
+          <span class="cover-edition-badge"><i class="fa-solid fa-award"></i> Official 2026 Wholesale Edition</span>
+        </div>
+
+        <div class="cover-center-brand">
+          <div class="cover-emblem-large"><i class="fa-solid fa-umbrella"></i></div>
+          <h1 class="cover-brand-name">D PLUS ONE</h1>
+          <p class="cover-brand-sub">NEW UMBRELLA AND BRAND</p>
+          <div style="font-size:0.85rem;color:#1d4ed8;font-weight:800;letter-spacing:1px;text-transform:uppercase;">
+            Manufacturer & Pan-India Wholesale Distributor
+          </div>
+        </div>
+
+        <div>
+          <div class="cover-series-grid">
+            <span class="cover-series-chip"><i class="fa-solid fa-circle-check" style="color:#2563eb;"></i> Fold Series</span>
+            <span class="cover-series-chip"><i class="fa-solid fa-circle-check" style="color:#2563eb;"></i> 23" Stick Series</span>
+            <span class="cover-series-chip"><i class="fa-solid fa-circle-check" style="color:#2563eb;"></i> 25" Fiber Series</span>
+            <span class="cover-series-chip"><i class="fa-solid fa-circle-check" style="color:#2563eb;"></i> Golf & Window Series</span>
+            <span class="cover-series-chip"><i class="fa-solid fa-circle-check" style="color:#2563eb;"></i> Garden Canopies</span>
+          </div>
+
+          <div class="cover-footer-meta">
+            <p><strong>Factory & Warehouse:</strong> Bhiwandi Industrial Corridor, Thane, Maharashtra — 421302</p>
+            <p><strong>GSTIN:</strong> 27GGVPP4625K1ZH &nbsp;|&nbsp; <strong>Helpline:</strong> 08037734447 &nbsp;|&nbsp; <strong>Web:</strong> www.dplusonenewumbrella.com</p>
+          </div>
+        </div>
+      </div>
+    `;
+    brochurePagesContainer.appendChild(coverPage);
+
+    // Pages 1 to 20: Product Pages
+    productsData.forEach((p, idx) => {
+      const pageNum = idx + 1;
+      const formattedPageNum = pageNum < 10 ? `0${pageNum}` : `${pageNum}`;
+      const catName = getCategoryLabel(p.category);
+      const moqVal = p.specs['Factory MOQ'] || '100 PCS / BAG';
+      const sizeVal = p.specs['Size'] || '24 Inch';
+      const materialVal = p.specs['Material'] || 'High-Grade Polyester';
+      const featureVal = p.specs['Feature'] || p.specs['Type'] || 'Windproof Steel Frame';
+
+      const pageEl = document.createElement('div');
+      pageEl.className = 'brochure-page';
+      pageEl.setAttribute('data-page-index', `${pageNum}`);
+
+      pageEl.innerHTML = `
+        <div class="brochure-inner-frame">
+          <!-- Page Header -->
+          <div class="brochure-page-header">
+            <div class="brochure-brand-logo-unit">
+              <div class="brochure-mini-emblem"><i class="fa-solid fa-umbrella"></i></div>
+              <div class="brochure-mini-brand-name">
+                D PLUS ONE
+                <span>UMBRELLA</span>
+              </div>
+            </div>
+            <div class="brochure-series-tag">${catName}</div>
+          </div>
+
+          <!-- Page Body & Product Image -->
+          <div class="brochure-page-body">
+            <div class="brochure-watermark">UMBRELLA</div>
+            <img src="${p.image}" alt="${p.name}" class="brochure-product-img" loading="lazy">
+          </div>
+
+          <!-- Page Footer Info -->
+          <div>
+            <div class="brochure-page-footer-content">
+              <div class="brochure-product-title-wrap">
+                <h3 class="brochure-product-title">${p.name}</h3>
+                <div class="brochure-product-specs-line">
+                  <span>Size: <strong>${sizeVal}</strong></span> &nbsp;|&nbsp;
+                  <span>Fabric: <strong>${materialVal}</strong></span> &nbsp;|&nbsp;
+                  <span>Feature: <strong>${featureVal}</strong></span>
+                </div>
+              </div>
+
+              <div class="brochure-badge-column">
+                <div class="brochure-packaging-badge">
+                  <i class="fa-solid fa-box"></i>
+                  <div>
+                    <div style="font-size:0.62rem;opacity:0.85;">PACKAGING</div>
+                    <div>${moqVal.replace(' / Carton', '').replace(' / Bag', '')}</div>
+                  </div>
+                </div>
+                <div class="brochure-page-num">${formattedPageNum}</div>
+              </div>
+            </div>
+
+            <!-- Page Subfooter -->
+            <div class="brochure-page-subfooter">
+              🌐 www.dplusonenewumbrella.com &nbsp;|&nbsp; 📞 08037734447 &nbsp;|&nbsp; 🏭 Direct Bhiwandi Factory
+            </div>
+          </div>
+        </div>
+      `;
+
+      brochurePagesContainer.appendChild(pageEl);
+    });
+  }
+
+  function updateBrochureView() {
+    const pages = brochurePagesContainer.querySelectorAll('.brochure-page');
+    if (!pages.length) return;
+
+    if (isBrochureAllView) {
+      pages.forEach(p => p.style.display = 'flex');
+      if (brochurePageIndicator) brochurePageIndicator.textContent = `All 21 Pages`;
+      if (brochureViewToggle) brochureViewToggle.innerHTML = `<i class="fa-solid fa-file"></i> Single Page Mode`;
+    } else {
+      pages.forEach((p, idx) => {
+        if (idx === currentBrochurePageIndex) {
+          p.style.display = 'flex';
+        } else {
+          p.style.display = 'none';
+        }
+      });
+      if (brochurePageIndicator) {
+        brochurePageIndicator.textContent = `Page ${currentBrochurePageIndex + 1} / ${totalBrochurePages}`;
+      }
+      if (brochureViewToggle) {
+        brochureViewToggle.innerHTML = `<i class="fa-solid fa-scroll"></i> View All 21 Pages`;
+      }
+    }
+
+    if (brochureSeriesSelect && !isBrochureAllView) {
+      if (currentBrochurePageIndex === 0) brochureSeriesSelect.value = "0";
+      else if (currentBrochurePageIndex <= 8) brochureSeriesSelect.value = "1";
+      else if (currentBrochurePageIndex <= 13) brochureSeriesSelect.value = "9";
+      else if (currentBrochurePageIndex <= 14) brochureSeriesSelect.value = "14";
+      else if (currentBrochurePageIndex <= 18) brochureSeriesSelect.value = "15";
+      else brochureSeriesSelect.value = "19";
+    }
+
+    if (brochureViewport) brochureViewport.scrollTop = 0;
+  }
+
+  function openVisualBrochure(startPage = 0) {
+    if (!visualCatalogModal) return;
+    buildVisualBrochurePages();
+    currentBrochurePageIndex = startPage;
+    isBrochureAllView = false;
+    updateBrochureView();
+    visualCatalogModal.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  if (openVisualCatalogBtn) {
+    openVisualCatalogBtn.addEventListener('click', () => openVisualBrochure(0));
+  }
+  if (navVisualCatalogBtn) {
+    navVisualCatalogBtn.addEventListener('click', () => openVisualBrochure(0));
+  }
+  if (mobileVisualCatalogTrigger) {
+    mobileVisualCatalogTrigger.addEventListener('click', () => openVisualBrochure(0));
+  }
+
+  if (brochurePrevBtn) {
+    brochurePrevBtn.addEventListener('click', () => {
+      isBrochureAllView = false;
+      currentBrochurePageIndex = (currentBrochurePageIndex - 1 + totalBrochurePages) % totalBrochurePages;
+      updateBrochureView();
+    });
+  }
+
+  if (brochureNextBtn) {
+    brochureNextBtn.addEventListener('click', () => {
+      isBrochureAllView = false;
+      currentBrochurePageIndex = (currentBrochurePageIndex + 1) % totalBrochurePages;
+      updateBrochureView();
+    });
+  }
+
+  if (brochureSeriesSelect) {
+    brochureSeriesSelect.addEventListener('change', (e) => {
+      isBrochureAllView = false;
+      currentBrochurePageIndex = parseInt(e.target.value);
+      updateBrochureView();
+    });
+  }
+
+  if (brochureViewToggle) {
+    brochureViewToggle.addEventListener('click', () => {
+      isBrochureAllView = !isBrochureAllView;
+      updateBrochureView();
+    });
+  }
+
+  if (printBrochureBtn) {
+    printBrochureBtn.addEventListener('click', () => {
+      // Show all pages before printing
+      const pages = brochurePagesContainer.querySelectorAll('.brochure-page');
+      pages.forEach(p => p.style.display = 'flex');
+      document.body.classList.add('printing-brochure');
+      window.print();
+      setTimeout(() => {
+        document.body.classList.remove('printing-brochure');
+        updateBrochureView();
+      }, 500);
+    });
+  }
+
+  if (closeBrochureModalBtn) {
+    closeBrochureModalBtn.addEventListener('click', () => {
+      visualCatalogModal.classList.remove('active');
+      document.body.style.overflow = '';
+    });
+  }
+
+  if (visualCatalogModal) {
+    visualCatalogModal.addEventListener('click', (e) => {
+      if (e.target === visualCatalogModal) {
+        visualCatalogModal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+  }
+
+  // ═══════════════════════════════════════════════════════════
+  // 2. WHOLESALE RATE CARD MODAL (TABLE INDEX)
+  // ═══════════════════════════════════════════════════════════
   function renderCatalogTable(categoryFilter = 'all') {
     if (!catalogTableContent) return;
 
@@ -463,7 +711,6 @@ document.addEventListener('DOMContentLoaded', () => {
       </table>
     `;
 
-    // Bind row inquire buttons
     catalogTableContent.querySelectorAll('.cat-row-inquire-btn').forEach(btn => {
       btn.addEventListener('click', (e) => {
         const name = e.currentTarget.getAttribute('data-name');
@@ -487,8 +734,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function openCatalogModal() {
     if (!catalogModal) return;
-
-    // Reset tabs
     const catTabs = document.querySelectorAll('.cat-modal-tab');
     catTabs.forEach(t => {
       if (t.getAttribute('data-cat') === 'all') t.classList.add('active');
@@ -500,7 +745,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.style.overflow = 'hidden';
   }
 
-  // Inside Catalog Modal Category Filter Tabs
   document.querySelectorAll('.cat-modal-tab').forEach(tab => {
     tab.addEventListener('click', (e) => {
       document.querySelectorAll('.cat-modal-tab').forEach(t => t.classList.remove('active'));
@@ -513,7 +757,9 @@ document.addEventListener('DOMContentLoaded', () => {
   if (downloadCatalogBtn) {
     downloadCatalogBtn.addEventListener('click', openCatalogModal);
   }
-
+  if (navRateCardBtn) {
+    navRateCardBtn.addEventListener('click', openCatalogModal);
+  }
   if (mobileCatalogTrigger) {
     mobileCatalogTrigger.addEventListener('click', openCatalogModal);
   }
@@ -536,11 +782,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (printCatalogBtn) {
     printCatalogBtn.addEventListener('click', () => {
+      document.body.classList.remove('printing-brochure');
       window.print();
     });
   }
 
-  // ── Interactive Bulk Order & Master Carton Calculator ──
+  // ── Bulk Order & Master Carton Calculator ──
   const calcProductSelect = document.getElementById('calc-product-select');
   const calcQtyRange = document.getElementById('calc-qty-range');
   const calcQtyDisplay = document.getElementById('calc-qty-display');
@@ -553,7 +800,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const metricTransit = document.getElementById('metric-transit');
   const calcOrderBtn = document.getElementById('calc-order-quote-btn');
 
-  // Populate Calculator Product Dropdown
   if (calcProductSelect && productsData.length > 0) {
     calcProductSelect.innerHTML = productsData.map(p => `
       <option value="${p.id}">${p.name} (${getCategoryLabel(p.category)} - ${p.specs['Size'] || ''})</option>
@@ -569,7 +815,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (calcQtyDisplay) calcQtyDisplay.textContent = `${qty.toLocaleString()} Pcs`;
 
-    // Extract MOQ per carton from product specs
     let pcsPerCarton = 100;
     const moqText = product.specs['Factory MOQ'] || '';
     const match = moqText.match(/(\d+)/);
@@ -667,6 +912,10 @@ document.addEventListener('DOMContentLoaded', () => {
         catalogModal.classList.remove('active');
         document.body.style.overflow = '';
       }
+      if (visualCatalogModal && visualCatalogModal.classList.contains('active')) {
+        visualCatalogModal.classList.remove('active');
+        document.body.style.overflow = '';
+      }
     }
   });
 
@@ -730,6 +979,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ── Initial Product Render ──
+  // Initial render
   renderFilteredProducts();
 });
